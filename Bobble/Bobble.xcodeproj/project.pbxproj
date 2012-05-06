@@ -1,0 +1,482 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		502DC86614CFCBFF001572BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502DC86514CFCBFF001572BD /* UIKit.framework */; };
+		502DC86814CFCBFF001572BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502DC86714CFCBFF001572BD /* Foundation.framework */; };
+		502DC86A14CFCBFF001572BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502DC86914CFCBFF001572BD /* CoreGraphics.framework */; };
+		502DC87014CFCBFF001572BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 502DC86E14CFCBFF001572BD /* InfoPlist.strings */; };
+		502DC87214CFCBFF001572BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 502DC87114CFCBFF001572BD /* main.m */; };
+		502DC87614CFCBFF001572BD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 502DC87514CFCBFF001572BD /* AppDelegate.m */; };
+		502DC87E14CFCBFF001572BD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502DC87D14CFCBFF001572BD /* SenTestingKit.framework */; };
+		502DC87F14CFCBFF001572BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502DC86514CFCBFF001572BD /* UIKit.framework */; };
+		502DC88014CFCBFF001572BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502DC86714CFCBFF001572BD /* Foundation.framework */; };
+		502DC88814CFCBFF001572BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 502DC88614CFCBFF001572BD /* InfoPlist.strings */; };
+		502DC88B14CFCBFF001572BD /* BobbleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 502DC88A14CFCBFF001572BD /* BobbleTests.m */; };
+		502DC89714CFCC3B001572BD /* BobbleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 502DC89514CFCC3B001572BD /* BobbleViewController.m */; };
+		502DC89814CFCC3B001572BD /* BobbleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 502DC89614CFCC3B001572BD /* BobbleViewController.xib */; };
+		502DC89E14CFCF6C001572BD /* DampenedHarmonic.m in Sources */ = {isa = PBXBuildFile; fileRef = 502DC89D14CFCF6C001572BD /* DampenedHarmonic.m */; };
+		502DC8A114CFD084001572BD /* Bobble.m in Sources */ = {isa = PBXBuildFile; fileRef = 502DC8A014CFD084001572BD /* Bobble.m */; };
+		502DC8A714CFDAA6001572BD /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 502DC8A614CFDAA5001572BD /* head.png */; };
+		502DC8AA14CFDAB3001572BD /* body.png in Resources */ = {isa = PBXBuildFile; fileRef = 502DC8A914CFDAB3001572BD /* body.png */; };
+		50CE17C914D3C3DE001544B1 /* knut.png in Resources */ = {isa = PBXBuildFile; fileRef = 50CE17C814D3C3DE001544B1 /* knut.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		502DC88114CFCBFF001572BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 502DC85814CFCBFF001572BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 502DC86014CFCBFF001572BD;
+			remoteInfo = Bobble;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		502DC86114CFCBFF001572BD /* Bobble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bobble.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		502DC86514CFCBFF001572BD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		502DC86714CFCBFF001572BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		502DC86914CFCBFF001572BD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		502DC86D14CFCBFF001572BD /* Bobble-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bobble-Info.plist"; sourceTree = "<group>"; };
+		502DC86F14CFCBFF001572BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		502DC87114CFCBFF001572BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		502DC87314CFCBFF001572BD /* Bobble-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bobble-Prefix.pch"; sourceTree = "<group>"; };
+		502DC87414CFCBFF001572BD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		502DC87514CFCBFF001572BD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		502DC87C14CFCBFF001572BD /* BobbleTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BobbleTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		502DC87D14CFCBFF001572BD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		502DC88514CFCBFF001572BD /* BobbleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BobbleTests-Info.plist"; sourceTree = "<group>"; };
+		502DC88714CFCBFF001572BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		502DC88914CFCBFF001572BD /* BobbleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BobbleTests.h; sourceTree = "<group>"; };
+		502DC88A14CFCBFF001572BD /* BobbleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BobbleTests.m; sourceTree = "<group>"; };
+		502DC89414CFCC3B001572BD /* BobbleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BobbleViewController.h; sourceTree = "<group>"; };
+		502DC89514CFCC3B001572BD /* BobbleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BobbleViewController.m; sourceTree = "<group>"; };
+		502DC89614CFCC3B001572BD /* BobbleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BobbleViewController.xib; sourceTree = "<group>"; };
+		502DC89C14CFCF6C001572BD /* DampenedHarmonic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DampenedHarmonic.h; sourceTree = "<group>"; };
+		502DC89D14CFCF6C001572BD /* DampenedHarmonic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DampenedHarmonic.m; sourceTree = "<group>"; };
+		502DC89F14CFD084001572BD /* Bobble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bobble.h; sourceTree = "<group>"; };
+		502DC8A014CFD084001572BD /* Bobble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bobble.m; sourceTree = "<group>"; };
+		502DC8A614CFDAA5001572BD /* head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head.png; sourceTree = "<group>"; };
+		502DC8A914CFDAB3001572BD /* body.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = body.png; sourceTree = "<group>"; };
+		50CE17C814D3C3DE001544B1 /* knut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knut.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		502DC85E14CFCBFF001572BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				502DC86614CFCBFF001572BD /* UIKit.framework in Frameworks */,
+				502DC86814CFCBFF001572BD /* Foundation.framework in Frameworks */,
+				502DC86A14CFCBFF001572BD /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		502DC87814CFCBFF001572BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				502DC87E14CFCBFF001572BD /* SenTestingKit.framework in Frameworks */,
+				502DC87F14CFCBFF001572BD /* UIKit.framework in Frameworks */,
+				502DC88014CFCBFF001572BD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		502DC85614CFCBFF001572BD = {
+			isa = PBXGroup;
+			children = (
+				502DC86B14CFCBFF001572BD /* Bobble */,
+				502DC88314CFCBFF001572BD /* BobbleTests */,
+				502DC86414CFCBFF001572BD /* Frameworks */,
+				502DC86214CFCBFF001572BD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		502DC86214CFCBFF001572BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				502DC86114CFCBFF001572BD /* Bobble.app */,
+				502DC87C14CFCBFF001572BD /* BobbleTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		502DC86414CFCBFF001572BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				502DC86514CFCBFF001572BD /* UIKit.framework */,
+				502DC86714CFCBFF001572BD /* Foundation.framework */,
+				502DC86914CFCBFF001572BD /* CoreGraphics.framework */,
+				502DC87D14CFCBFF001572BD /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		502DC86B14CFCBFF001572BD /* Bobble */ = {
+			isa = PBXGroup;
+			children = (
+				502DC87414CFCBFF001572BD /* AppDelegate.h */,
+				502DC87514CFCBFF001572BD /* AppDelegate.m */,
+				502DC89914CFCC48001572BD /* Model */,
+				502DC89A14CFCC50001572BD /* Controller */,
+				502DC86C14CFCBFF001572BD /* Supporting Files */,
+			);
+			path = Bobble;
+			sourceTree = "<group>";
+		};
+		502DC86C14CFCBFF001572BD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				502DC8A914CFDAB3001572BD /* body.png */,
+				502DC8A614CFDAA5001572BD /* head.png */,
+				50CE17C814D3C3DE001544B1 /* knut.png */,
+				502DC86D14CFCBFF001572BD /* Bobble-Info.plist */,
+				502DC86E14CFCBFF001572BD /* InfoPlist.strings */,
+				502DC87114CFCBFF001572BD /* main.m */,
+				502DC87314CFCBFF001572BD /* Bobble-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		502DC88314CFCBFF001572BD /* BobbleTests */ = {
+			isa = PBXGroup;
+			children = (
+				502DC88914CFCBFF001572BD /* BobbleTests.h */,
+				502DC88A14CFCBFF001572BD /* BobbleTests.m */,
+				502DC88414CFCBFF001572BD /* Supporting Files */,
+			);
+			path = BobbleTests;
+			sourceTree = "<group>";
+		};
+		502DC88414CFCBFF001572BD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				502DC88514CFCBFF001572BD /* BobbleTests-Info.plist */,
+				502DC88614CFCBFF001572BD /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		502DC89914CFCC48001572BD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				502DC89C14CFCF6C001572BD /* DampenedHarmonic.h */,
+				502DC89D14CFCF6C001572BD /* DampenedHarmonic.m */,
+				502DC89F14CFD084001572BD /* Bobble.h */,
+				502DC8A014CFD084001572BD /* Bobble.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		502DC89A14CFCC50001572BD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				502DC89414CFCC3B001572BD /* BobbleViewController.h */,
+				502DC89514CFCC3B001572BD /* BobbleViewController.m */,
+				502DC89614CFCC3B001572BD /* BobbleViewController.xib */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		502DC86014CFCBFF001572BD /* Bobble */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 502DC88E14CFCBFF001572BD /* Build configuration list for PBXNativeTarget "Bobble" */;
+			buildPhases = (
+				502DC85D14CFCBFF001572BD /* Sources */,
+				502DC85E14CFCBFF001572BD /* Frameworks */,
+				502DC85F14CFCBFF001572BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Bobble;
+			productName = Bobble;
+			productReference = 502DC86114CFCBFF001572BD /* Bobble.app */;
+			productType = "com.apple.product-type.application";
+		};
+		502DC87B14CFCBFF001572BD /* BobbleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 502DC89114CFCBFF001572BD /* Build configuration list for PBXNativeTarget "BobbleTests" */;
+			buildPhases = (
+				502DC87714CFCBFF001572BD /* Sources */,
+				502DC87814CFCBFF001572BD /* Frameworks */,
+				502DC87914CFCBFF001572BD /* Resources */,
+				502DC87A14CFCBFF001572BD /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				502DC88214CFCBFF001572BD /* PBXTargetDependency */,
+			);
+			name = BobbleTests;
+			productName = BobbleTests;
+			productReference = 502DC87C14CFCBFF001572BD /* BobbleTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		502DC85814CFCBFF001572BD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 502DC85B14CFCBFF001572BD /* Build configuration list for PBXProject "Bobble" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 502DC85614CFCBFF001572BD;
+			productRefGroup = 502DC86214CFCBFF001572BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				502DC86014CFCBFF001572BD /* Bobble */,
+				502DC87B14CFCBFF001572BD /* BobbleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		502DC85F14CFCBFF001572BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				502DC87014CFCBFF001572BD /* InfoPlist.strings in Resources */,
+				502DC89814CFCC3B001572BD /* BobbleViewController.xib in Resources */,
+				502DC8A714CFDAA6001572BD /* head.png in Resources */,
+				502DC8AA14CFDAB3001572BD /* body.png in Resources */,
+				50CE17C914D3C3DE001544B1 /* knut.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		502DC87914CFCBFF001572BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				502DC88814CFCBFF001572BD /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		502DC87A14CFCBFF001572BD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		502DC85D14CFCBFF001572BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				502DC87214CFCBFF001572BD /* main.m in Sources */,
+				502DC87614CFCBFF001572BD /* AppDelegate.m in Sources */,
+				502DC89714CFCC3B001572BD /* BobbleViewController.m in Sources */,
+				502DC89E14CFCF6C001572BD /* DampenedHarmonic.m in Sources */,
+				502DC8A114CFD084001572BD /* Bobble.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		502DC87714CFCBFF001572BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				502DC88B14CFCBFF001572BD /* BobbleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		502DC88214CFCBFF001572BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 502DC86014CFCBFF001572BD /* Bobble */;
+			targetProxy = 502DC88114CFCBFF001572BD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		502DC86E14CFCBFF001572BD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				502DC86F14CFCBFF001572BD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		502DC88614CFCBFF001572BD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				502DC88714CFCBFF001572BD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		502DC88C14CFCBFF001572BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		502DC88D14CFCBFF001572BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		502DC88F14CFCBFF001572BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Bobble/Bobble-Prefix.pch";
+				INFOPLIST_FILE = "Bobble/Bobble-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		502DC89014CFCBFF001572BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Bobble/Bobble-Prefix.pch";
+				INFOPLIST_FILE = "Bobble/Bobble-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		502DC89214CFCBFF001572BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Bobble.app/Bobble";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Bobble/Bobble-Prefix.pch";
+				INFOPLIST_FILE = "BobbleTests/BobbleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		502DC89314CFCBFF001572BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Bobble.app/Bobble";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Bobble/Bobble-Prefix.pch";
+				INFOPLIST_FILE = "BobbleTests/BobbleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		502DC85B14CFCBFF001572BD /* Build configuration list for PBXProject "Bobble" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				502DC88C14CFCBFF001572BD /* Debug */,
+				502DC88D14CFCBFF001572BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		502DC88E14CFCBFF001572BD /* Build configuration list for PBXNativeTarget "Bobble" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				502DC88F14CFCBFF001572BD /* Debug */,
+				502DC89014CFCBFF001572BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		502DC89114CFCBFF001572BD /* Build configuration list for PBXNativeTarget "BobbleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				502DC89214CFCBFF001572BD /* Debug */,
+				502DC89314CFCBFF001572BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 502DC85814CFCBFF001572BD /* Project object */;
+}

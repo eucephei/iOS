@@ -11,17 +11,21 @@
 
 @interface CalculatorViewController()
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
+@property (nonatomic) BOOL showEqualSign;
 @property (nonatomic, strong) CalculatorBrain *brain;
-@property (nonatomic, strong) NSMutableArray *history;
+@property (nonatomic , strong ) NSDictionary *testVariableValues;
 @end
 
 @implementation CalculatorViewController
 
 @synthesize display = _display;
-@synthesize displayHistory = _displayHistory;
-@synthesize userIsInTheMiddleOfEnteringANumber = _userIsInTheMiddleOfEnteringANumber;
-@synthesize brain = _brain;
 @synthesize history = _history;
+@synthesize variables = _variables;
+
+@synthesize userIsInTheMiddleOfEnteringANumber = _userIsInTheMiddleOfEnteringANumber;
+@synthesize showEqualSign = _showEqualSign;
+@synthesize brain = _brain;
+@synthesize testVariableValues = _testVariableValues;
 
 - (void)didReceiveMemoryWarning
 {
@@ -40,7 +44,9 @@
 - (void)viewDidUnload
 {
     [self setDisplay:nil];
-    [self setDisplayHistory:nil];    
+    [self setHistory:nil];   
+    [self setVariables:nil];
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -78,15 +84,6 @@
 
 #pragma mark - Accessors
 
-#define kHistoryCapacity 20 
-
-- (NSMutableArray *)history
-{
-    if (!_history)
-        _history = [[NSMutableArray alloc] initWithCapacity:kHistoryCapacity];
-    return _history;
-}
-
 - (CalculatorBrain *) brain 
 {
     if (!_brain) _brain = [[CalculatorBrain alloc] init];
@@ -95,14 +92,75 @@
 
 #pragma mark - UIButtons
 
-// helper function for updating history
-- (void)updateHistory:(NSString *)withText
+// helper to update the main display  
+- (void) updateDisplay:(NSNumber*)result 
 {
-    NSAssert(self.history.count <= kHistoryCapacity, @"ERROR: History too long");
-    if (self.history.count == kHistoryCapacity)
-        [self.history removeObjectAtIndex:0];
-    [self.history addObject:withText];
-    self.displayHistory.text = [self.history componentsJoinedByString:@" "]; 
+    NSLog(@"operation result is: %@", result);
+    self.display.text = [NSString stringWithFormat:@"%@",result];
+}
+
+// helper for updating history display
+- (void)updateHistory:(NSString*)history withEqualSign:(BOOL)equal
+{
+    NSLog(@"operation history is: %@", history);
+    self.history.text = (!equal) 
+        ? history
+        : [history stringByAppendingFormat:@" ="]; 
+    self.showEqualSign = equal;
+}
+
+// helper for updating variables display
+- (void)updateVariables:(NSSet*)variables
+{
+    NSLog(@"operation variables are: %@", variables);
+    self.variables.text = @"";
+    for (NSString *key in variables) {
+        NSNumber *value = [self.testVariableValues valueForKey:key];
+        NSString* append = [NSString stringWithFormat:@"  %@%@%@  ", key, @" = ", (value) ? value : @"0"];
+        self.variables.text = [self.variables.text stringByAppendingString:append];        
+    }
+}
+
+// changes the sign of the number
+-(NSString *)plusMinus:(NSString *)number
+{
+    if ([number hasPrefix:@"-"])
+        number = [number substringFromIndex:1];
+    else if ([number doubleValue] != 0)
+        number = [@"-" stringByAppendingString:number];
+    
+    return number;
+}
+
+- (IBAction)enterPressed
+{
+    NSString* variable = self.display.text; 
+    double number = [variable doubleValue]; 
+    
+    if (!number && [variable characterAtIndex:0] != '0')
+        [self.brain pushOperand:variable]; 
+    else 
+        [self.brain pushOperand:[NSNumber numberWithDouble:number]];
+    
+    self.userIsInTheMiddleOfEnteringANumber = NO;
+    [self updateHistory:[CalculatorBrain descriptionOfProgram:self.brain.program]withEqualSign:NO];
+}
+
+- (IBAction)operationPressed:(UIButton*)sender 
+{
+    NSString *operation = sender.currentTitle;
+    NSLog(@"operation is: %@", operation);
+    
+    if (self.userIsInTheMiddleOfEnteringANumber) {
+        if ([@"±" isEqualToString:operation]) {
+            self.display.text = [self plusMinus:self.display.text];
+            return;
+        }
+        [self enterPressed];
+    }
+
+    [self updateDisplay:(NSNumber*)[self.brain performOperation:operation]];
+    [self updateHistory:[CalculatorBrain descriptionOfProgram:self.brain.program]withEqualSign:YES];
 }
 
 - (IBAction)digitPressed:(UIButton*)sender 
@@ -115,73 +173,64 @@
         if (!([digit isEqual:@"."] && range.location != NSNotFound)) 
             self.display.text = [self.display.text stringByAppendingFormat:digit];
     } else {
-        self.display.text = ([digit isEqual:@"."]) ? @"0." : digit;
+        self.display.text = [digit isEqual:@"."] ? @"0." : digit;
         self.userIsInTheMiddleOfEnteringANumber = YES;
     }
 }
 
-- (IBAction)enterPressed
-{
-    [self.brain pushOperand:[self.display.text doubleValue]];
-    self.userIsInTheMiddleOfEnteringANumber = NO;
-    
-    [self updateHistory:self.display.text];
-}
-
-- (IBAction)operationPressed:(UIButton*)sender 
-{
-    if (self.userIsInTheMiddleOfEnteringANumber) [self enterPressed];
-    
-    double result = [self.brain performOperation:sender.currentTitle];
-    NSLog(@"calculated result is: %f", result);
-    NSString *resultString = [NSString stringWithFormat:@"%g", result];
-    self.display.text = resultString;
-    
-    [self updateHistory:sender.currentTitle];
-    NSLog(@"current title is: %@", sender.currentTitle);
-
-    // [self updateHistory:sender.currentTitle];
-    self.displayHistory.text = [self.displayHistory.text stringByAppendingString:@" ="]; 
-}
-
-- (IBAction)plusMinusPressed:(UIButton *)sender
-{
-    if (self.userIsInTheMiddleOfEnteringANumber) {
-        if ([self.display.text hasPrefix:@"-"])
-            self.display.text = [self.display.text substringFromIndex:1];
-        else
-            self.display.text = [NSString stringWithFormat:@"-%@",self.display.text];
-        return;
-    }
-    
-    double result = [self.brain performOperation:sender.currentTitle];
-    self.display.text = [NSString stringWithFormat:@"%g",result];
-    
-    [self updateHistory:sender.currentTitle];
-    self.displayHistory.text = [self.displayHistory.text stringByAppendingString:@" ="]; 
-}
-
-- (IBAction)clearPressed
-{
-    [self.brain reset];
-    self.history = nil;                                 
-    self.display.text = @"0";                           // Clear the display
-    self.displayHistory.text = @"";                       // Clear the history window
-    self.userIsInTheMiddleOfEnteringANumber = NO;       // Reset user typing boolean
-}
-
 - (IBAction)backspacePressed 
 {
-    if (self.userIsInTheMiddleOfEnteringANumber) {
-        if ([self.display.text length] > 1) {
-            self.display.text = [self.display.text substringToIndex:[self.display.text length] - 1];
-        } else {
-            self.display.text = @"0";
+    if (self.userIsInTheMiddleOfEnteringANumber){
+        self.display.text = [self.display.text substringToIndex:([self.display.text length] - 1)];
+        if ([self.display.text length] == 0) {
+            self.display.text = @"0"; 
             self.userIsInTheMiddleOfEnteringANumber = NO;
         }
     }
 }
 
+- (IBAction)undoPressed
+{                 
+    [self backspacePressed];
+    if (!self.userIsInTheMiddleOfEnteringANumber) {
+        [self.brain undo];
+        [self updateVariables:[CalculatorBrain variablesUsedInProgram:self.brain.program]];
+        [self updateHistory:[CalculatorBrain descriptionOfProgram:self.brain.program] withEqualSign:!self.showEqualSign];
+        [self updateDisplay:[CalculatorBrain runProgram:self.brain.program usingVariableValues:self.testVariableValues]];
+    }
+}
 
+- (IBAction)clearPressed
+{                                 
+    self.display.text = @"0";                          // Clear the display
+    self.history.text = @"";                           // Clear the history window
+    self.variables.text = @"";                         // Clear the variables window
+    [self.brain clear];
+    self.userIsInTheMiddleOfEnteringANumber = NO;      // Reset user typing boolean
+}
+
+- (IBAction)variablePressed:(UIButton *)sender 
+{    
+    self.display.text = sender.currentTitle;
+    [self enterPressed];
+}
+
+- (IBAction)testVariableValuesPressed:(UIButton *)sender {
+    
+    NSString *testVar = sender.currentTitle;
+    if ([testVar isEqualToString:@"test 1"]){
+        self.testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:1.1],@"x",[NSNumber numberWithDouble:0.1],@"y",[NSNumber numberWithDouble:1],@"unused",nil];
+    }else if ([testVar isEqualToString:@"test 2"]){
+        self.testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:-1.1],@"x",[NSNumber numberWithDouble:0.3],@"y",[NSNumber numberWithDouble:2.1],@"z",nil];
+    }else if ([testVar isEqualToString:@"test 3"]){
+        self.testVariableValues = nil;
+    }
+    
+    NSSet* variables = [CalculatorBrain variablesUsedInProgram:self.brain.program];
+    if (variables) { 
+        [self updateVariables:variables];
+        [self updateDisplay:[CalculatorBrain runProgram:self.brain.program usingVariableValues:self.testVariableValues]];
+    }
+}
 
 @end

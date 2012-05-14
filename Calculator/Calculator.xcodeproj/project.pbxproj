@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		507940BC15550B5D00207D17 /* CalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 507940BB15550B5D00207D17 /* CalculatorBrain.m */; };
+		50AA103F155A3B7D00662296 /* calculator.png in Resources */ = {isa = PBXBuildFile; fileRef = 50AA103E155A3B7D00662296 /* calculator.png */; };
 		50DAA7CD155507E300E0C223 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50DAA7CC155507E300E0C223 /* UIKit.framework */; };
 		50DAA7CF155507E300E0C223 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50DAA7CE155507E300E0C223 /* Foundation.framework */; };
 		50DAA7D1155507E300E0C223 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50DAA7D0155507E300E0C223 /* CoreGraphics.framework */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		507940BA15550B5D00207D17 /* CalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorBrain.h; sourceTree = "<group>"; };
 		507940BB15550B5D00207D17 /* CalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorBrain.m; sourceTree = "<group>"; };
+		50AA103E155A3B7D00662296 /* calculator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calculator.png; sourceTree = "<group>"; };
 		50DAA7C8155507E300E0C223 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50DAA7CC155507E300E0C223 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		50DAA7CE155507E300E0C223 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -98,6 +100,7 @@
 		50DAA7D3155507E300E0C223 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				50AA103E155A3B7D00662296 /* calculator.png */,
 				50DAA7D4155507E300E0C223 /* Calculator-Info.plist */,
 				50DAA7D5155507E300E0C223 /* InfoPlist.strings */,
 				50DAA7D8155507E300E0C223 /* main.m */,
@@ -159,6 +162,7 @@
 				50DAA7D7155507E300E0C223 /* InfoPlist.strings in Resources */,
 				50DAA7E0155507E300E0C223 /* MainStoryboard_iPhone.storyboard in Resources */,
 				50DAA7E3155507E300E0C223 /* MainStoryboard_iPad.storyboard in Resources */,
+				50AA103F155A3B7D00662296 /* calculator.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

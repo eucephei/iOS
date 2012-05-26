@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		501D92B31570845F001B46EE /* Operator.m in Sources */ = {isa = PBXBuildFile; fileRef = 501D92B21570845F001B46EE /* Operator.m */; };
+		501D92B61570848A001B46EE /* VariableValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 501D92B51570848A001B46EE /* VariableValues.m */; };
+		501D92B9157084DF001B46EE /* AxesDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 501D92B8157084DF001B46EE /* AxesDrawer.m */; };
+		501D92BC157084F4001B46EE /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 501D92BB157084F4001B46EE /* GraphView.m */; };
+		501D92BF1570850F001B46EE /* CUTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 501D92BE1570850F001B46EE /* CUTableViewController.m */; };
+		501D92C21570851A001B46EE /* FavoritesPopoverTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 501D92C11570851A001B46EE /* FavoritesPopoverTableViewController.m */; };
+		501D92C51570851F001B46EE /* FavoritesPushedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 501D92C41570851F001B46EE /* FavoritesPushedTableViewController.m */; };
+		501D92C81570852C001B46EE /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 501D92C71570852C001B46EE /* GraphViewController.m */; };
+		501D92D415708774001B46EE /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 501D92D315708774001B46EE /* MainStoryboard_iPad.storyboard */; };
 		507940BC15550B5D00207D17 /* CalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 507940BB15550B5D00207D17 /* CalculatorBrain.m */; };
 		50AA103F155A3B7D00662296 /* calculator.png in Resources */ = {isa = PBXBuildFile; fileRef = 50AA103E155A3B7D00662296 /* calculator.png */; };
 		50DAA7CD155507E300E0C223 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50DAA7CC155507E300E0C223 /* UIKit.framework */; };
@@ -16,11 +25,27 @@
 		50DAA7D9155507E300E0C223 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DAA7D8155507E300E0C223 /* main.m */; };
 		50DAA7DD155507E300E0C223 /* CalculatorAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DAA7DC155507E300E0C223 /* CalculatorAppDelegate.m */; };
 		50DAA7E0155507E300E0C223 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50DAA7DE155507E300E0C223 /* MainStoryboard_iPhone.storyboard */; };
-		50DAA7E3155507E300E0C223 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50DAA7E1155507E300E0C223 /* MainStoryboard_iPad.storyboard */; };
 		50DAA7E6155507E300E0C223 /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DAA7E5155507E300E0C223 /* CalculatorViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		501D92B11570845F001B46EE /* Operator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Operator.h; sourceTree = "<group>"; };
+		501D92B21570845F001B46EE /* Operator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Operator.m; sourceTree = "<group>"; };
+		501D92B41570848A001B46EE /* VariableValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariableValues.h; sourceTree = "<group>"; };
+		501D92B51570848A001B46EE /* VariableValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VariableValues.m; sourceTree = "<group>"; };
+		501D92B7157084DF001B46EE /* AxesDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxesDrawer.h; sourceTree = "<group>"; };
+		501D92B8157084DF001B46EE /* AxesDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AxesDrawer.m; sourceTree = "<group>"; };
+		501D92BA157084F4001B46EE /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		501D92BB157084F4001B46EE /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
+		501D92BD1570850F001B46EE /* CUTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTableViewController.h; sourceTree = "<group>"; };
+		501D92BE1570850F001B46EE /* CUTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTableViewController.m; sourceTree = "<group>"; };
+		501D92C01570851A001B46EE /* FavoritesPopoverTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesPopoverTableViewController.h; sourceTree = "<group>"; };
+		501D92C11570851A001B46EE /* FavoritesPopoverTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesPopoverTableViewController.m; sourceTree = "<group>"; };
+		501D92C31570851F001B46EE /* FavoritesPushedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesPushedTableViewController.h; sourceTree = "<group>"; };
+		501D92C41570851F001B46EE /* FavoritesPushedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesPushedTableViewController.m; sourceTree = "<group>"; };
+		501D92C61570852C001B46EE /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
+		501D92C71570852C001B46EE /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
+		501D92D315708774001B46EE /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		507940BA15550B5D00207D17 /* CalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorBrain.h; sourceTree = "<group>"; };
 		507940BB15550B5D00207D17 /* CalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorBrain.m; sourceTree = "<group>"; };
 		50AA103E155A3B7D00662296 /* calculator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calculator.png; sourceTree = "<group>"; };
@@ -35,7 +60,6 @@
 		50DAA7DB155507E300E0C223 /* CalculatorAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculatorAppDelegate.h; sourceTree = "<group>"; };
 		50DAA7DC155507E300E0C223 /* CalculatorAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorAppDelegate.m; sourceTree = "<group>"; };
 		50DAA7DF155507E300E0C223 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
-		50DAA7E2155507E300E0C223 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		50DAA7E4155507E300E0C223 /* CalculatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculatorViewController.h; sourceTree = "<group>"; };
 		50DAA7E5155507E300E0C223 /* CalculatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,6 +78,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		501D92AD157083F5001B46EE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				501D92B7157084DF001B46EE /* AxesDrawer.h */,
+				501D92B8157084DF001B46EE /* AxesDrawer.m */,
+				501D92BA157084F4001B46EE /* GraphView.h */,
+				501D92BB157084F4001B46EE /* GraphView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		501D92AF15708404001B46EE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				50DAA7E4155507E300E0C223 /* CalculatorViewController.h */,
+				50DAA7E5155507E300E0C223 /* CalculatorViewController.m */,
+				501D92BD1570850F001B46EE /* CUTableViewController.h */,
+				501D92BE1570850F001B46EE /* CUTableViewController.m */,
+				501D92C01570851A001B46EE /* FavoritesPopoverTableViewController.h */,
+				501D92C31570851F001B46EE /* FavoritesPushedTableViewController.h */,
+				501D92C41570851F001B46EE /* FavoritesPushedTableViewController.m */,
+				501D92C11570851A001B46EE /* FavoritesPopoverTableViewController.m */,
+				501D92C61570852C001B46EE /* GraphViewController.h */,
+				501D92C71570852C001B46EE /* GraphViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		501D92B015708411001B46EE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				507940BA15550B5D00207D17 /* CalculatorBrain.h */,
+				507940BB15550B5D00207D17 /* CalculatorBrain.m */,
+				501D92B11570845F001B46EE /* Operator.h */,
+				501D92B21570845F001B46EE /* Operator.m */,
+				501D92B41570848A001B46EE /* VariableValues.h */,
+				501D92B51570848A001B46EE /* VariableValues.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		50DAA7BD155507E300E0C223 = {
 			isa = PBXGroup;
 			children = (
@@ -84,14 +149,13 @@
 		50DAA7D2155507E300E0C223 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
-				507940BA15550B5D00207D17 /* CalculatorBrain.h */,
-				507940BB15550B5D00207D17 /* CalculatorBrain.m */,
+				50DAA7DE155507E300E0C223 /* MainStoryboard_iPhone.storyboard */,
+				501D92D315708774001B46EE /* MainStoryboard_iPad.storyboard */,
 				50DAA7DB155507E300E0C223 /* CalculatorAppDelegate.h */,
 				50DAA7DC155507E300E0C223 /* CalculatorAppDelegate.m */,
-				50DAA7DE155507E300E0C223 /* MainStoryboard_iPhone.storyboard */,
-				50DAA7E1155507E300E0C223 /* MainStoryboard_iPad.storyboard */,
-				50DAA7E4155507E300E0C223 /* CalculatorViewController.h */,
-				50DAA7E5155507E300E0C223 /* CalculatorViewController.m */,
+				501D92B015708411001B46EE /* Model */,
+				501D92AD157083F5001B46EE /* View */,
+				501D92AF15708404001B46EE /* Controller */,
 				50DAA7D3155507E300E0C223 /* Supporting Files */,
 			);
 			path = Calculator;
@@ -161,8 +225,8 @@
 			files = (
 				50DAA7D7155507E300E0C223 /* InfoPlist.strings in Resources */,
 				50DAA7E0155507E300E0C223 /* MainStoryboard_iPhone.storyboard in Resources */,
-				50DAA7E3155507E300E0C223 /* MainStoryboard_iPad.storyboard in Resources */,
 				50AA103F155A3B7D00662296 /* calculator.png in Resources */,
+				501D92D415708774001B46EE /* MainStoryboard_iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +241,14 @@
 				50DAA7DD155507E300E0C223 /* CalculatorAppDelegate.m in Sources */,
 				50DAA7E6155507E300E0C223 /* CalculatorViewController.m in Sources */,
 				507940BC15550B5D00207D17 /* CalculatorBrain.m in Sources */,
+				501D92B31570845F001B46EE /* Operator.m in Sources */,
+				501D92B61570848A001B46EE /* VariableValues.m in Sources */,
+				501D92B9157084DF001B46EE /* AxesDrawer.m in Sources */,
+				501D92BC157084F4001B46EE /* GraphView.m in Sources */,
+				501D92BF1570850F001B46EE /* CUTableViewController.m in Sources */,
+				501D92C21570851A001B46EE /* FavoritesPopoverTableViewController.m in Sources */,
+				501D92C51570851F001B46EE /* FavoritesPushedTableViewController.m in Sources */,
+				501D92C81570852C001B46EE /* GraphViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,14 +269,6 @@
 				50DAA7DF155507E300E0C223 /* en */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		50DAA7E1155507E300E0C223 /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				50DAA7E2155507E300E0C223 /* en */,
-			);
-			name = MainStoryboard_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

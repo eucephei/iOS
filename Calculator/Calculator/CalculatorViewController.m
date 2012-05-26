@@ -7,25 +7,27 @@
 //
 
 #import "CalculatorViewController.h"
+#import "GraphViewController.h"
 #import "CalculatorBrain.h"
+#import "VariableValues.h"
 
 @interface CalculatorViewController()
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic) BOOL showEqualSign;
 @property (nonatomic, strong) CalculatorBrain *brain;
-@property (nonatomic , strong ) NSDictionary *testVariableValues;
+@property (nonatomic, strong) VariableValues *variableValues;
 @end
 
 @implementation CalculatorViewController
 
-@synthesize display = _display;
-@synthesize history = _history;
-@synthesize variables = _variables;
+@synthesize display                             = _display;
+@synthesize displayLog                          = _displayLog;
+@synthesize displayVariables                    = _displayVariables;
 
-@synthesize userIsInTheMiddleOfEnteringANumber = _userIsInTheMiddleOfEnteringANumber;
-@synthesize showEqualSign = _showEqualSign;
-@synthesize brain = _brain;
-@synthesize testVariableValues = _testVariableValues;
+@synthesize userIsInTheMiddleOfEnteringANumber  = _userIsInTheMiddleOfEnteringANumber;
+@synthesize showEqualSign                       = _showEqualSign;
+@synthesize brain                               = _brain;
+@synthesize variableValues                      = _variableValues;
 
 - (void)didReceiveMemoryWarning
 {
@@ -44,8 +46,8 @@
 - (void)viewDidUnload
 {
     [self setDisplay:nil];
-    [self setHistory:nil];   
-    [self setVariables:nil];
+    [self setDisplayLog:nil];   
+    [self setDisplayVariables:nil];
     
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -74,12 +76,10 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
+    if (self.splitViewController)                                           // iPAD
         return YES;
-    }
+    else                                                                    // iPHONE
+        return UIInterfaceOrientationIsPortrait(interfaceOrientation);
 }
 
 #pragma mark - Accessors
@@ -90,39 +90,55 @@
     return _brain;
 }
 
+- (VariableValues *)variableValues
+{
+    if (!_variableValues) _variableValues = [[VariableValues alloc] init];
+    return _variableValues;
+}
+
 #pragma mark - UIButtons
 
-// helper to update the main display  
+- (NSNumber *) programResult
+{
+    return [CalculatorBrain runProgram:self.brain.program usingVariableValues:self.variableValues.dict];
+}
+
+- (NSString *) programDescription
+{
+    return [CalculatorBrain descriptionOfProgram:self.brain.program];
+}
+
+- (NSSet *) programVariables
+{
+    return [CalculatorBrain variablesUsedInProgram:self.brain.program];
+}
+
 - (void) updateDisplay:(NSNumber*)result 
 {
-    NSLog(@"operation result is: %@", result);
+    // NSLog(@"operation result is: %@", result);
     self.display.text = [NSString stringWithFormat:@"%@",result];
 }
 
-// helper for updating history display
-- (void)updateHistory:(NSString*)history withEqualSign:(BOOL)equal
+- (void)updateDisplayLog:(NSString*)log withEqualSign:(BOOL)equal
 {
-    NSLog(@"operation history is: %@", history);
-    self.history.text = (!equal) 
-        ? history
-        : [history stringByAppendingFormat:@" ="]; 
+    // NSLog(@"operation log is: %@", log);
+    self.displayLog.text = (!equal) ? log : [log stringByAppendingFormat:@" ="]; 
     self.showEqualSign = equal;
 }
 
-// helper for updating variables display
-- (void)updateVariables:(NSSet*)variables
+- (void)updateDisplayVariables:(NSSet*)variables           
 {
-    NSLog(@"operation variables are: %@", variables);
-    self.variables.text = @"";
+    // NSLog(@"operation variables are: %@", variables);
+    self.displayVariables.text = @"";
     for (NSString *key in variables) {
-        NSNumber *value = [self.testVariableValues valueForKey:key];
+        NSNumber *value = [self.variableValues.dict valueForKey:key];
         NSString* append = [NSString stringWithFormat:@"  %@%@%@  ", key, @" = ", (value) ? value : @"0"];
-        self.variables.text = [self.variables.text stringByAppendingString:append];        
+        self.displayVariables.text = [self.displayVariables.text stringByAppendingString:append];        
     }
 }
 
 // changes the sign of the number
--(NSString *)plusMinus:(NSString *)number
+-(NSString *)plusMinus:(NSString *)number           
 {
     if ([number hasPrefix:@"-"])
         number = [number substringFromIndex:1];
@@ -143,13 +159,13 @@
         [self.brain pushOperand:[NSNumber numberWithDouble:number]];
     
     self.userIsInTheMiddleOfEnteringANumber = NO;
-    [self updateHistory:[CalculatorBrain descriptionOfProgram:self.brain.program]withEqualSign:NO];
+    [self updateDisplayLog:[self programDescription] withEqualSign:NO];
 }
 
 - (IBAction)operationPressed:(UIButton*)sender 
 {
     NSString *operation = sender.currentTitle;
-    NSLog(@"operation is: %@", operation);
+    // NSLog(@"operation is: %@", operation);
     
     if (self.userIsInTheMiddleOfEnteringANumber) {
         if ([@"±" isEqualToString:operation]) {
@@ -158,16 +174,16 @@
         }
         [self enterPressed];
     }
-
+    
     [self updateDisplay:(NSNumber*)[self.brain performOperation:operation]];
-    [self updateHistory:[CalculatorBrain descriptionOfProgram:self.brain.program]withEqualSign:YES];
+    [self updateDisplayLog:[self programDescription] withEqualSign:YES];
 }
 
 - (IBAction)digitPressed:(UIButton*)sender 
 {
     NSString *digit = sender.currentTitle;
     NSRange range = [self.display.text rangeOfString:@"."];
-    NSLog(@"digit pressed = %@, range = %@", digit, NSStringFromRange(range));
+    // NSLog(@"digit pressed = %@, range = %@", digit, NSStringFromRange(range));
     
     if (self.userIsInTheMiddleOfEnteringANumber) {
         if (!([digit isEqual:@"."] && range.location != NSNotFound)) 
@@ -180,7 +196,7 @@
 
 - (IBAction)backspacePressed 
 {
-    if (self.userIsInTheMiddleOfEnteringANumber){
+    if (self.userIsInTheMiddleOfEnteringANumber) {
         self.display.text = [self.display.text substringToIndex:([self.display.text length] - 1)];
         if ([self.display.text length] == 0) {
             self.display.text = @"0"; 
@@ -194,19 +210,20 @@
     [self backspacePressed];
     if (!self.userIsInTheMiddleOfEnteringANumber) {
         [self.brain undo];
-        [self updateVariables:[CalculatorBrain variablesUsedInProgram:self.brain.program]];
-        [self updateHistory:[CalculatorBrain descriptionOfProgram:self.brain.program] withEqualSign:!self.showEqualSign];
-        [self updateDisplay:[CalculatorBrain runProgram:self.brain.program usingVariableValues:self.testVariableValues]];
+        [self updateDisplay:[self programResult]];
+        [self updateDisplayVariables:[self programVariables]];
+        [self updateDisplayLog:[self programDescription] withEqualSign:!self.showEqualSign];
     }
 }
 
-- (IBAction)clearPressed
-{                                 
-    self.display.text = @"0";                          // Clear the display
-    self.history.text = @"";                           // Clear the history window
-    self.variables.text = @"";                         // Clear the variables window
+- (IBAction)allClearPressed
+{
+    self.display.text = @"0";                       // Clear the display
+    self.userIsInTheMiddleOfEnteringANumber = NO;   // Reset user typing boolean
+    
     [self.brain clear];
-    self.userIsInTheMiddleOfEnteringANumber = NO;      // Reset user typing boolean
+    self.displayLog.text = @"";                     // Clear the log window
+    self.displayVariables.text = @"";               // Clear the variables window
 }
 
 - (IBAction)variablePressed:(UIButton *)sender 
@@ -215,22 +232,47 @@
     [self enterPressed];
 }
 
-- (IBAction)testVariableValuesPressed:(UIButton *)sender {
+- (IBAction)variableValuePressed
+{
+    NSString *variable = [[self.displayLog.text componentsSeparatedByString:@" "] lastObject]; 
+    NSNumber *variableValue = [NSNumber numberWithDouble:[self.display.text doubleValue]];
     
-    NSString *testVar = sender.currentTitle;
-    if ([testVar isEqualToString:@"test 1"]){
-        self.testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:1.1],@"x",[NSNumber numberWithDouble:0.1],@"y",[NSNumber numberWithDouble:1],@"unused",nil];
-    }else if ([testVar isEqualToString:@"test 2"]){
-        self.testVariableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:-1.1],@"x",[NSNumber numberWithDouble:0.3],@"y",[NSNumber numberWithDouble:2.1],@"z",nil];
-    }else if ([testVar isEqualToString:@"test 3"]){
-        self.testVariableValues = nil;
-    }
-    
-    NSSet* variables = [CalculatorBrain variablesUsedInProgram:self.brain.program];
+    if ([self.variableValues.dictKeys containsObject:variable]) {
+        [self.variableValues.dict setValue:variableValue forKey:variable];
+        [self updateDisplayLog:variable withEqualSign:YES];
+        [self updateDisplayVariables:self.variableValues.dictKeys];
+    }    
+} 
+
+- (IBAction)variableValueEval
+{
+    NSSet* variables = [self programVariables];
     if (variables) { 
-        [self updateVariables:variables];
-        [self updateDisplay:[CalculatorBrain runProgram:self.brain.program usingVariableValues:self.testVariableValues]];
+        [self updateDisplay:[self programResult]];
+        [self updateDisplayVariables:variables];
     }
 }
+
+- (IBAction)graphPressed
+{   
+    id detailViewController = [self.splitViewController.viewControllers lastObject];
+    
+    if ([detailViewController isKindOfClass:[GraphViewController class]]) 
+        // iPAD: updates program in the graph at the right (detail) pane
+        [detailViewController setProgram:self.brain.program];
+    else 
+        // iPHONE: segue to Graph
+        if ([self.brain.program count] > 0)
+            [self performSegueWithIdentifier:@"ShowGraph" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // iPAD: Send program to graph pane
+    // iPHONE: Bring up Graph by Segue
+    if ([segue.identifier isEqualToString:@"ShowGraph"]) 
+        [segue.destinationViewController setProgram:self.brain.program];
+}
+
 
 @end

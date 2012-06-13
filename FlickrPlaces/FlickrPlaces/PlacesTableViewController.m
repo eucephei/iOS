@@ -51,8 +51,6 @@
 {
     //[self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
-    
-
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -93,11 +91,11 @@
     }
     
 	NSDictionary *place = [[self.selectedFlickrPlaces objectForKey:[self.countries objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-	NSDictionary *placeInfo = [FlickrService titlesForPlace:place];
+	NSArray *selectFlickrPlace = [FlickrService titlesForPlace:place];
     
     // Format place info into the cell's title and subtitle
-    cell.textLabel.text = [placeInfo valueForKey:FLICKR_PHOTO_TITLE];
-    cell.detailTextLabel.text = [placeInfo valueForKey:FLICKR_PHOTO_DESCRIPTION];
+    cell.textLabel.text = [selectFlickrPlace objectAtIndex:0];
+    cell.detailTextLabel.text = [selectFlickrPlace objectAtIndex:1];
     
     return cell;
 }
@@ -117,15 +115,14 @@
     int section = self.tableView.indexPathForSelectedRow.section;
 	int row = self.tableView.indexPathForSelectedRow.row;
 	
-    //NSLog(@"selected Flickr Place: %@", (NSString*)[self.flickrPlaces objectAtIndex:self.tableView.indexPathForSelectedRow.row]);  
-    
+    //NSLog(@"selected Flickr Place: %@", [self.flickrPlaces objectAtIndex:row]);  
     if ([segue.destinationViewController isKindOfClass:[PhotosTableViewController class]]){
         PhotosTableViewController *photosTVC = (PhotosTableViewController *)segue.destinationViewController;  
         
         NSDictionary *place = [[self.selectedFlickrPlaces valueForKey:[self.countries objectAtIndex:section]] objectAtIndex:row];
-        
+
+        photosTVC.flickrPhotos = [FlickrService photosInPlace:place];
         photosTVC.navigationItem.title = [[(UITableViewCell *)sender textLabel] text];
-        photosTVC.flickrPhotos = [FlickrService photosInPlace:place maxResults:FLICKR_PHOTOS_MAX];
     }
 }
 

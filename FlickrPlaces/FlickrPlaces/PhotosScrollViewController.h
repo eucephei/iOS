@@ -13,7 +13,6 @@
 @property (nonatomic, strong) NSDictionary *photo;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, weak) IBOutlet UIToolbar *toolbar;
 
 - (void)refreshPhotosScrollView:(NSDictionary *)photo;
 

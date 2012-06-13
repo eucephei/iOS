@@ -29,23 +29,44 @@
     return title;
 }
 
-+ (NSDictionary *)titlesForPlace:(NSDictionary *)place
++ (NSString *)descriptionForPlace:(NSDictionary *)place
 {
-    NSMutableDictionary* titles = [NSMutableDictionary dictionary];
+    NSString *description = [place objectForKey:FLICKR_PLACE_NAME]; 
     
-	NSString *placeInfo = [place objectForKey:FLICKR_PLACE_NAME];
-	NSRange firstComma = [placeInfo rangeOfString:@","];
-   
-	if (firstComma.location == NSNotFound) {
-        [titles setValue:placeInfo forKey:FLICKR_PHOTO_TITLE];
-        [titles setValue:@"" forKey:FLICKR_PHOTO_DESCRIPTION];
-	} else {
-        NSArray *placeTitles = [placeInfo componentsSeparatedByString:@","];
-        [titles setValue:[placeTitles objectAtIndex:0] forKey:FLICKR_PHOTO_TITLE];
-        [titles setValue:[placeTitles objectAtIndex:1] forKey:FLICKR_PHOTO_DESCRIPTION];
-    }	
+    NSRange firstComma = [description rangeOfString:@","];
+	if (firstComma.location != NSNotFound) 
+        description = [description substringFromIndex:firstComma.location + 1];
+    
+    return description;
+}
+
++ (NSArray *)titlesForPlace:(NSDictionary *)place
+{
+    NSArray* titles;
+    
+    NSString *description = [place objectForKey:FLICKR_PLACE_NAME];
+    NSRange firstComma = [description rangeOfString:@","];
+    if (firstComma.location != NSNotFound) 
+        titles = [description componentsSeparatedByString:@","];  
+    else 
+        titles = [NSArray arrayWithObjects:description, @"", nil];
     
     return titles;
+}
+
++ (NSURL *)urlForPhoto:(NSDictionary *)photo
+{
+    return [FlickrFetcher urlForPhoto:photo format:FlickrPhotoFormatSquare];
+}
+
++ (NSData *)dataWithContentsOfURLForPhoto:(NSDictionary *)photo
+{
+    return [NSData dataWithContentsOfURL:[FlickrFetcher urlForPhoto:photo format:FlickrPhotoFormatLarge]];
+}
+
++ (NSArray *)photosInPlace:(NSDictionary *)place
+{
+    return [FlickrFetcher photosInPlace:place maxResults:FLICKR_PHOTOS_MAX];
 }
 
 + (NSArray *)loadTopPlaces

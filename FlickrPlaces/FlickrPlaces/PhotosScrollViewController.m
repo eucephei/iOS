@@ -14,7 +14,6 @@
 @synthesize photo = _photo;
 @synthesize imageView = _photoView;
 @synthesize scrollView = _scrollView;
-@synthesize toolbar = _toolbar;
 
 #pragma mark - Setup
 
@@ -22,7 +21,7 @@
 {    
 	self.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
 	
-    self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[FlickrService urlForPhoto:self.photo format:FlickrPhotoFormatLarge]]];
+    self.imageView.image = [UIImage imageWithData:[FlickrService dataWithContentsOfURLForPhoto:self.photo]];
     self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height);
     
     self.scrollView.zoomScale = 1;
@@ -32,10 +31,11 @@
 - (void) storePhoto
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    // remove oldest photo if list too long
+    
 	NSMutableArray *recentPhotos = [[defaults objectForKey:FLICKR_PHOTOS_RECENT] mutableCopy];
 	if (!recentPhotos) recentPhotos = [NSMutableArray array];
+    
+    // remove oldest photo if list too long
 	if (recentPhotos.count > FLICKR_PHOTOS_MAX)  
 		[recentPhotos removeObjectAtIndex:0];
 	
@@ -109,11 +109,6 @@
 {
     // Return YES for supported orientations
 	return YES;
-}
-
--(BOOL)wantsFullScreenLayout 
-{
-    return YES;
 }
 
 #pragma mark - UIScrollViewDelegate

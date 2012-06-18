@@ -15,14 +15,16 @@
 
 + (NSString *)subtitleForPhoto:(NSDictionary *)photo;
 + (NSString *)titleForPhoto:(NSDictionary *)photo;
+
++ (NSString *)countryForPlace:(NSDictionary *)place;
 + (NSString *)descriptionForPlace:(NSDictionary *)place;
++ (NSString *)titleForPlace:(NSDictionary *)place;
 + (NSArray *)titlesForPlace:(NSDictionary *)place;
 
-+ (NSURL *)urlForPhoto:(NSDictionary *)photo;
-+ (NSData *)dataWithContentsOfURLForPhoto:(NSDictionary *)photo;
++ (NSData *)dataWithContentsOfURLForPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format;
 + (NSArray *)photosInPlace:(NSDictionary *)place;
-+ (NSArray *)loadTopPlaces; 
-+ (NSDictionary *)loadSelectPlaces:(NSArray *)topPlaces;
 
++ (NSArray *)topPlaces; 
++ (NSDictionary *)selectTopPlaces:(NSArray *)topPlaces;
 
 @end

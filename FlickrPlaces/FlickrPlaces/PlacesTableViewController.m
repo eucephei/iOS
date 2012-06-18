@@ -8,27 +8,71 @@
 
 #import "PlacesTableViewController.h"
 #import "PhotosTableViewController.h"
+#import "MapViewController.h"
 #import "FlickrService.h"
+#import "FlickrPlaceAnnotation.h"
+
+@interface PlacesTableViewController() <MapViewControllerDelegate>
+// @property (nonatomic, strong, readonly) NSArray* mapAnnotations;
+@end
 
 @implementation PlacesTableViewController
 
 @synthesize flickrPlaces = _flickrPlaces;
 @synthesize selectedFlickrPlaces = _selectedFlickrPlaces;
 @synthesize countries = _countries;
+@synthesize refreshButton = _refreshButton;
 
+#pragma mark - Target Action
 
-#pragma mark - Setup
-
-- (void)loadTopPlacesByCountry
-{	
-	if (self.flickrPlaces) return;
+- (IBAction)refresh:(id)sender {
     
-    // load top places, selected place, countries
-    
-	self.flickrPlaces = [FlickrService loadTopPlaces];
-	self.selectedFlickrPlaces = [FlickrService loadSelectPlaces:self.flickrPlaces];
-	self.countries = [[self.selectedFlickrPlaces allKeys] sortedArrayUsingSelector: 
-                           @selector(caseInsensitiveCompare:)];
+    UIActivityIndicatorView* spinner = [UIActivityIndicatorView alloc];
+    if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+        spinner = [spinner initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+    } else {
+        spinner = [spinner initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        spinner.frame = self.tableView.frame;
+        [self.tableView.superview insertSubview: spinner aboveSubview: self.tableView];
+    }
+
+    [spinner startAnimating];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        self.flickrPlaces = [FlickrService topPlaces];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.selectedFlickrPlaces = [FlickrService selectTopPlaces:self.flickrPlaces];
+            self.countries = [[self.selectedFlickrPlaces allKeys] sortedArrayUsingSelector: 
+                              @selector(caseInsensitiveCompare:)];
+            self.navigationItem.leftBarButtonItem = sender;
+            [self.tableView reloadData];
+            [spinner stopAnimating];
+        });
+    });
+}
+
+#pragma mark - MapViewControllerDelegate
+
+-(NSArray*) mapAnnotations
+{
+    NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:[self.flickrPlaces count]];
+    for (NSString* country in self.countries) 
+        for (NSDictionary *place in [self.selectedFlickrPlaces valueForKey:country])
+            [annotations addObject:[FlickrPlaceAnnotation annotationForPlace:place]];
+        
+    return annotations;
+}
+
+-(BOOL) annotationHasThumbnail
+{
+    return NO;
+}
+
+-(void) showPhotoForAnnotation:(id <MKAnnotation>)annotation
+{
+    [self performSegueWithIdentifier:@"ShowPlacePhotos" sender:annotation];
 }
 
 #pragma mark - View lifecycle
@@ -36,21 +80,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadTopPlacesByCountry];
-    
     // preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
 }
 
 - (void)viewDidUnload
 {
+    [self setRefreshButton:nil];
     [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    //[self.navigationController setNavigationBarHidden:YES animated:animated];
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
+    [self refresh:self.navigationItem.leftBarButtonItem];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -104,26 +147,40 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {	
-    // unhighlight selected row
+    // unhighlight row to prevent multiple rows selection
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Segue
 
+- (NSDictionary *)aPlace:(int)place inCountry:(int)country
+{
+    return [[self.selectedFlickrPlaces valueForKey:[self.countries objectAtIndex:country]] objectAtIndex:place];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender 
 {	
-    int section = self.tableView.indexPathForSelectedRow.section;
-	int row = self.tableView.indexPathForSelectedRow.row;
-	
-    //NSLog(@"selected Flickr Place: %@", [self.flickrPlaces objectAtIndex:row]);  
-    if ([segue.destinationViewController isKindOfClass:[PhotosTableViewController class]]){
-        PhotosTableViewController *photosTVC = (PhotosTableViewController *)segue.destinationViewController;  
+    if ([segue.identifier isEqualToString:@"ShowMap"]) {
         
-        NSDictionary *place = [[self.selectedFlickrPlaces valueForKey:[self.countries objectAtIndex:section]] objectAtIndex:row];
-
-        photosTVC.flickrPhotos = [FlickrService photosInPlace:place];
-        photosTVC.navigationItem.title = [[(UITableViewCell *)sender textLabel] text];
-    }
+        [segue.destinationViewController setAnnotations:[self mapAnnotations]];
+        [segue.destinationViewController setDelegate:self]; 
+    } 
+    
+    else if ([segue.identifier isEqualToString:@"ShowPlacePhotos"]){
+        
+        NSDictionary *place;
+        
+        if  ([sender isKindOfClass:[UITableViewCell class]]) {
+            int section = self.tableView.indexPathForSelectedRow.section;
+            int row = self.tableView.indexPathForSelectedRow.row;
+            place = [self aPlace:row inCountry:section];
+        }
+        else if ([sender isKindOfClass:[FlickrPlaceAnnotation class]]) 
+            place = ((FlickrPlaceAnnotation *)sender).place;
+         
+        [segue.destinationViewController setFlickrPhotos:[FlickrService photosInPlace:place]];
+        [segue.destinationViewController setTitle:[FlickrService titleForPlace:place]];
+    } 
 }
 
 @end

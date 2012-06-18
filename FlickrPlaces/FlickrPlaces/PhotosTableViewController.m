@@ -7,18 +7,73 @@
 //
 
 #import "PhotosTableViewController.h"
-#import "PhotosScrollViewController.h"
+#import "PhotoScrollViewController.h"
+#import "MapViewController.h"
 #import "FlickrService.h"
+#import "FlickrRecentPhotos.h"
+#import "FlickrImage.h"
+#import "FlickrPhotoAnnotation.h"
+
+@interface PhotosTableViewController() <MapViewControllerDelegate>
+@property (nonatomic, strong) UIImage *thumbnail;
+@end
 
 @implementation PhotosTableViewController
 
 @synthesize flickrPhotos = _flickrPhotos;
+@synthesize thumbnail = _thumbnail;
 
-#pragma mark - Setup
+#pragma mark - Accessors
 
-- (NSArray *)recentPhotos
+-(UIImage*) thumbnail
 {
-	return [[[[NSUserDefaults standardUserDefaults] objectForKey:FLICKR_PHOTOS_RECENT] reverseObjectEnumerator] allObjects];
+    if (!_thumbnail) 
+        _thumbnail = [UIImage imageNamed:@"thumbnail.png"];
+    
+    return _thumbnail;
+}
+
+#pragma mark - MapViewControllerDelegate
+
+-(NSArray*) mapAnnotations
+{
+    NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:[self.flickrPhotos count]];
+    for (NSDictionary *photo in self.flickrPhotos) {
+        // NSLog(@"photo dict = %@", photo);
+        [annotations addObject:[FlickrPhotoAnnotation annotationForPhoto:photo]];
+    }
+    return annotations;
+}
+
+-(void) refreshMapWithAnnotations:(NSArray*)annotations
+{
+    // MapViewController as detail view controller in iPad
+}    
+
+-(BOOL) annotationHasThumbnail
+{
+    return YES;
+}
+
+-(void) showPhotoForAnnotation:(id <MKAnnotation>)annotation
+{
+    if (self.splitViewController) {
+        // iPAD
+        PhotoScrollViewController *photoSVC = [self.splitViewController.viewControllers lastObject];
+        if (photoSVC) 
+            [photoSVC refreshPhotoScrollView:((FlickrPhotoAnnotation*)annotation).photo];
+    } else {
+        // iPHONE
+        [self performSegueWithIdentifier:@"ShowPhoto" sender:annotation];
+    }
+}
+
+- (UIImage *)thumbnailForAnnotation:(id <MKAnnotation>)annotation
+{
+    NSDictionary *photo = ((FlickrPhotoAnnotation *) annotation).photo;
+    NSData *data = [FlickrService dataWithContentsOfURLForPhoto:photo format:FlickrPhotoFormatSquare];
+
+    return (!data) ? nil : [UIImage imageWithData:data];
 }
 
 #pragma mark - View lifecycle
@@ -43,7 +98,8 @@
     [super viewWillAppear:animated];
     
     if ([self.navigationItem.title isEqualToString:@"Recent Photos"]) {
-        self.flickrPhotos = [self recentPhotos];
+        self.flickrPhotos = [FlickrRecentPhotos retrievePhotos];
+        [self refreshMapWithAnnotations:self.mapAnnotations];
         [self.tableView reloadData];
     }
 }
@@ -81,10 +137,26 @@
     }
     
 	NSDictionary *selectFlickrPhoto = [self.flickrPhotos objectAtIndex:indexPath.row];
-
-	// set the cell's title, subtitles    
+    
+	// set the cell's image, title, subtitles    
+    cell.imageView.image = [self thumbnail];
     cell.textLabel.text = [FlickrService titleForPhoto:selectFlickrPhoto];
     cell.detailTextLabel.text = [FlickrService subtitleForPhoto:selectFlickrPhoto];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+        NSString* title = cell.textLabel.text;
+        
+        // UIImage* image = [UIImage imageWithData:[FlickrService dataWithContentsOfURLForPhoto:selectFlickrPhoto format:FlickrPhotoFormatSquare]];
+        UIImage* image = [FlickrImage imageForPhoto:selectFlickrPhoto format:FlickrPhotoFormatSquare];
+
+        /* ensure modify only imageView in the row that appeared as cells are reused,
+           by comparing local cell title copied on stack and the fresh cell title */
+        dispatch_async(dispatch_get_main_queue(), ^{
+           if ([title isEqualToString:cell.textLabel.text])
+               cell.imageView.image = image;
+        });
+    });
     
     return cell;
 }
@@ -99,17 +171,33 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {	    
-	// the detail view controller
-	PhotosScrollViewController *photosSVC = [[self.splitViewController viewControllers] lastObject];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPad)
+        return;
+ 
+    // the detail view controller    
+    PhotoScrollViewController *photoSVC = [[self.splitViewController viewControllers] lastObject];
+
     // Set up the model and synchronize it's views, else handle by the segue
-	if (photosSVC) [photosSVC refreshPhotosScrollView:[self photoInfo]];
+	if (photoSVC) [photoSVC refreshPhotoScrollView:[self photoInfo]];    
 }
 
 #pragma mark - Segueing
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender 
-{	
-	[[segue destinationViewController] setPhoto:[self photoInfo]];
+{	    
+   if ([segue.destinationViewController isKindOfClass:[MapViewController class]]) {
+   
+       [segue.destinationViewController setDelegate:self];  
+       [segue.destinationViewController setAnnotations:[self mapAnnotations]];
+    }
+    
+    else if ([segue.destinationViewController isKindOfClass:[PhotoScrollViewController class]]) {
+        
+        if ([sender isKindOfClass:[UITableViewCell class]])
+            [[segue destinationViewController] setPhoto:[self photoInfo]];
+        else if ([sender isKindOfClass:[FlickrPhotoAnnotation class]])
+            [[segue destinationViewController] setPhoto:((FlickrPhotoAnnotation*)sender).photo];
+    }
 }
 
 

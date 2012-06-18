@@ -29,6 +29,14 @@
     return title;
 }
 
++ (NSString *)countryForPlace:(NSDictionary *)place
+{
+	NSString *placeInfo = [place objectForKey:FLICKR_PLACE_NAME];
+	NSRange lastComma = [placeInfo rangeOfString:@"," options:NSBackwardsSearch];
+    
+    return (lastComma.location == NSNotFound) ? @"" : [placeInfo substringFromIndex:lastComma.location+2];
+}
+
 + (NSString *)descriptionForPlace:(NSDictionary *)place
 {
     NSString *description = [place objectForKey:FLICKR_PLACE_NAME]; 
@@ -38,6 +46,17 @@
         description = [description substringFromIndex:firstComma.location + 1];
     
     return description;
+}
+
++ (NSString *)titleForPlace:(NSDictionary *)place
+{
+    NSString *title = [place objectForKey:FLICKR_PLACE_NAME]; 
+    
+    NSRange firstComma = [title rangeOfString:@","];
+	if (firstComma.location != NSNotFound) 
+        title = [title substringToIndex:firstComma.location];
+    
+    return title;
 }
 
 + (NSArray *)titlesForPlace:(NSDictionary *)place
@@ -54,14 +73,10 @@
     return titles;
 }
 
-+ (NSURL *)urlForPhoto:(NSDictionary *)photo
-{
-    return [FlickrFetcher urlForPhoto:photo format:FlickrPhotoFormatSquare];
-}
 
-+ (NSData *)dataWithContentsOfURLForPhoto:(NSDictionary *)photo
++ (NSData *)dataWithContentsOfURLForPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format
 {
-    return [NSData dataWithContentsOfURL:[FlickrFetcher urlForPhoto:photo format:FlickrPhotoFormatLarge]];
+    return [NSData dataWithContentsOfURL:[FlickrFetcher urlForPhoto:photo format:format]];
 }
 
 + (NSArray *)photosInPlace:(NSDictionary *)place
@@ -69,7 +84,7 @@
     return [FlickrFetcher photosInPlace:place maxResults:FLICKR_PHOTOS_MAX];
 }
 
-+ (NSArray *)loadTopPlaces
++ (NSArray *)topPlaces
 {	
 	NSArray *sortDescriptors = [NSArray arrayWithObject:
                                 [NSSortDescriptor sortDescriptorWithKey:FLICKR_PLACE_NAME ascending:YES]];
@@ -77,20 +92,12 @@
 	return [[FlickrFetcher topPlaces] sortedArrayUsingDescriptors:sortDescriptors];
 }
 
-+ (NSString *)parseCountryForPlace:(NSDictionary *)place
-{
-	NSString *placeInfo = [place objectForKey:FLICKR_PLACE_NAME];
-	NSRange lastComma = [placeInfo rangeOfString:@"," options:NSBackwardsSearch];
-    
-    return (lastComma.location == NSNotFound) ? @"" : [placeInfo substringFromIndex:lastComma.location+2];
-}
-
-+ (NSDictionary *)loadSelectPlaces:(NSArray *)topPlaces
++ (NSDictionary *)selectTopPlaces:(NSArray *)topPlaces
 {
 	NSMutableDictionary *placesByCountry = [NSMutableDictionary dictionary];
     
 	for (NSDictionary *place in topPlaces) {
-		NSString *country = [self parseCountryForPlace:place];	
+		NSString *country = [self countryForPlace:place];	
 		if (![placesByCountry objectForKey:country]) 
 			[placesByCountry setObject:[NSMutableArray array] forKey:country];
 		[(NSMutableArray *)[placesByCountry objectForKey:country] addObject:place];		

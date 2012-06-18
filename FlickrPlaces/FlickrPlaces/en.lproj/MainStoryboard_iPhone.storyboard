@@ -48,10 +48,24 @@
                             <outlet property="delegate" destination="mMg-cP-CoF" id="vCc-rV-ur9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Top Places" id="GBp-oZ-As3"/>
+                    <navigationItem key="navigationItem" title="Top Places" id="GBp-oZ-As3">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="nB7-sK-vu5">
+                            <connections>
+                                <action selector="refresh:" destination="mMg-cP-CoF" id="raP-VB-cd5"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="JHO-RB-koD">
+                            <connections>
+                                <segue destination="Zns-Th-r5n" kind="push" identifier="ShowMap" id="MmT-ph-UOx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="refreshButton" destination="nB7-sK-vu5" id="eYP-hQ-XdR"/>
+                    </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1307" y="-38"/>
+            <point key="canvasLocation" x="1255" y="-38"/>
         </scene>
         <scene sceneID="57t-JY-caS">
             <objects>
@@ -97,10 +111,16 @@
                             <outlet property="delegate" destination="cGF-AO-9CX" id="uz2-Gr-95P"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Recent Photos" id="uaD-dF-GSB"/>
+                    <navigationItem key="navigationItem" title="Recent Photos" id="uaD-dF-GSB">
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="1pR-77-7Kc">
+                            <connections>
+                                <segue destination="ov4-I9-Tvv" kind="push" identifier="ShowMap" id="T06-Qe-mdq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1297" y="606"/>
+            <point key="canvasLocation" x="1483" y="530"/>
         </scene>
         <scene sceneID="HNP-1J-VPe">
             <objects>
@@ -136,7 +156,7 @@
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="83" y="34"/>
+            <point key="canvasLocation" x="231" y="310"/>
         </scene>
         <scene sceneID="STi-vj-9g7">
             <objects>
@@ -181,44 +201,97 @@
                             <outlet property="delegate" destination="TXL-sF-Xtd" id="m0J-b5-sDe"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Place Photos" id="X2H-Xj-mMO"/>
+                    <navigationItem key="navigationItem" title="Place Photos" id="X2H-Xj-mMO">
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="Zrr-yH-CQt">
+                            <connections>
+                                <segue destination="Zns-Th-r5n" kind="push" identifier="ShowMap" id="rIr-l0-WRa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1803" y="-68"/>
+            <point key="canvasLocation" x="1719" y="-38"/>
         </scene>
         <scene sceneID="K5C-9h-DXf">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PZf-B3-hOO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="4Rt-az-PSl" customClass="PhotosScrollViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="r3Q-qd-eeE">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                <viewController id="4Rt-az-PSl" customClass="PhotoScrollViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="T3K-ZK-JmS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yQT-rF-G0v">
-                                <rect key="frame" x="0.0" y="-20" width="320" height="460"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" id="yQT-rF-G0v">
+                                <rect key="frame" x="0.0" y="30" width="320" height="418"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="zaY-Fa-dW2">
-                                        <rect key="frame" x="0.0" y="20" width="320" height="444"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="redraw" id="zaY-Fa-dW2">
+                                        <rect key="frame" x="0.0" y="30" width="320" height="567"/>
                                         <autoresizingMask key="autoresizingMask"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="contentInset" minX="0.0" minY="0.0" maxX="0.0" maxY="64"/>
                                 <connections>
-                                    <outlet property="delegate" destination="4Rt-az-PSl" id="SU9-r7-JIC"/>
+                                    <outlet property="delegate" destination="4Rt-az-PSl" id="jrT-be-yr5"/>
                                 </connections>
                             </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="LYo-eZ-xnS">
+                                <rect key="frame" x="142" y="196" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Photo Image" id="OsL-og-YOg"/>
+                    <navigationItem key="navigationItem" title="Photo" id="OsL-og-YOg"/>
                     <connections>
                         <outlet property="imageView" destination="zaY-Fa-dW2" id="DlA-T3-s3T"/>
                         <outlet property="scrollView" destination="yQT-rF-G0v" id="fYZ-wi-WkW"/>
+                        <outlet property="spinner" destination="LYo-eZ-xnS" id="TK9-zs-L1F"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2472" y="216"/>
+            <point key="canvasLocation" x="2278" y="-38"/>
+        </scene>
+        <scene sceneID="aAQ-m1-fIJ">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ytU-er-M1g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="Zns-Th-r5n" customClass="MapViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8j1-Sy-Ke8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="TLU-u9-TO9">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Zns-Th-r5n" id="QaJ-K8-GEN"/>
+                                </connections>
+                            </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="bVe-MF-pal">
+                                <rect key="frame" x="57" y="382" width="207" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Satellite"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeMapType:" destination="Zns-Th-r5n" eventType="valueChanged" id="ozX-OE-BcW"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Map" id="5xm-MT-cYg"/>
+                    <connections>
+                        <outlet property="mapType" destination="bVe-MF-pal" id="h6C-rI-M6s"/>
+                        <outlet property="mapView" destination="TLU-u9-TO9" id="iVp-ky-pgj"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1990" y="-746"/>
         </scene>
         <scene sceneID="vue-59-6xJ">
             <objects>
@@ -236,7 +309,46 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="769" y="606"/>
+            <point key="canvasLocation" x="769" y="538"/>
+        </scene>
+        <scene sceneID="4xe-np-qnX">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Par-29-3kz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="ov4-I9-Tvv" customClass="MapViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Dwj-3v-CdY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="0Rb-yo-7cn">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ov4-I9-Tvv" id="ln2-r2-Fww"/>
+                                </connections>
+                            </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="DMb-fJ-B1C">
+                                <rect key="frame" x="57" y="382" width="207" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Satellite"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeMapType:" destination="ov4-I9-Tvv" eventType="valueChanged" id="gr3-TA-DlQ"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Map" id="Blz-XA-XgE"/>
+                    <connections>
+                        <outlet property="mapType" destination="DMb-fJ-B1C" id="bsU-8I-10S"/>
+                        <outlet property="mapView" destination="0Rb-yo-7cn" id="KGe-jW-pDO"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2262" y="530"/>
         </scene>
     </scenes>
     <resources>
@@ -244,11 +356,20 @@
         <image name="world.png" width="26" height="26"/>
     </resources>
     <classes>
-        <class className="PhotosScrollViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotosScrollViewController.h"/>
+        <class className="MapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapType" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+        <class className="PhotoScrollViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoScrollViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="PhotosTableViewController" superclassName="UITableViewController">
@@ -256,6 +377,10 @@
         </class>
         <class className="PlacesTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlacesTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="refresh:"/>
+                <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -264,6 +389,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4lG-XY-uRb"/>
+        <segue reference="q3X-fv-XUT"/>
+        <segue reference="rIr-l0-WRa"/>
     </inferredMetricsTieBreakers>
 </document>

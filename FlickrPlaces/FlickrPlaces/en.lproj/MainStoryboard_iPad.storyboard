@@ -20,7 +20,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-125" y="-334"/>
+            <point key="canvasLocation" x="-309" y="-142"/>
         </scene>
         <scene sceneID="oyG-BR-9Ux">
             <objects>
@@ -33,7 +33,7 @@
                     </connections>
                 </splitViewController>
             </objects>
-            <point key="canvasLocation" x="-1613" y="1139"/>
+            <point key="canvasLocation" x="-1797" y="1331"/>
         </scene>
         <scene sceneID="Rl1-gl-Bba">
             <objects>
@@ -96,7 +96,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="299" y="-350"/>
+            <point key="canvasLocation" x="115" y="-158"/>
         </scene>
         <scene sceneID="hpZ-ty-8Fd">
             <objects>
@@ -149,7 +149,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="299" y="634"/>
+            <point key="canvasLocation" x="115" y="826"/>
         </scene>
         <scene sceneID="gdh-QY-E6W">
             <objects>
@@ -167,7 +167,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-125" y="634"/>
+            <point key="canvasLocation" x="-309" y="826"/>
         </scene>
         <scene sceneID="ldE-OJ-KnO">
             <objects>
@@ -185,7 +185,7 @@
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="-645" y="642"/>
+            <point key="canvasLocation" x="-829" y="834"/>
         </scene>
         <scene sceneID="Tk2-9o-WmO">
             <objects>
@@ -225,7 +225,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="847" y="626"/>
+            <point key="canvasLocation" x="663" y="818"/>
         </scene>
         <scene sceneID="iUu-tS-eKQ">
             <objects>
@@ -278,7 +278,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="863" y="-342"/>
+            <point key="canvasLocation" x="679" y="-150"/>
         </scene>
         <scene sceneID="Gbl-uj-3pc">
             <objects>
@@ -326,7 +326,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-640" y="1651"/>
+            <point key="canvasLocation" x="-824" y="1843"/>
         </scene>
     </scenes>
     <resources>

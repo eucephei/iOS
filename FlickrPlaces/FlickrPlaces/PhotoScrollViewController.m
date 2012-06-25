@@ -13,7 +13,6 @@
 
 @interface PhotoScrollViewController()  
 @property (nonatomic, strong) NSDictionary *image;
-@property (nonatomic, strong) UIBarButtonItem *splitViewBarButtonItem;
 @end
 
 @implementation PhotoScrollViewController
@@ -24,6 +23,7 @@
 @synthesize spinner = _spinner;
 @synthesize toolbar = _toolbar;
 @synthesize image = _image;
+@synthesize titleBarButtonItemStr = _titleBarButtonItemStr;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 
 #pragma mark - Accessors
@@ -33,19 +33,47 @@
     if (_photo != photo) {
         _photo  = photo;  
         
-        if (!self.imageView.window) self.imageView.image = nil; 
+        if (!self.imageView.window) 
+            self.imageView.image = nil; 
     }
 }
 
-- (void) setPhotoTitle:(NSDictionary *)photo
-{   
-    // iPHONE
-    self.title = [FlickrService titleForPhoto:photo];
-    
-    // iPAD
-     NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
-     [[toolbarItems objectAtIndex:[self.toolbar.items count]-2] setTitle:self.title];
-    [self.toolbar setItems:toolbarItems];
+#pragma mark - SplitViewBarButtonItemPresenter 
+
+- (id <SplitViewBarButtonItemPresenter>)splitViewBarButtonItemPresenter
+{
+    id detailVC = [self.splitViewController.viewControllers lastObject];
+    if (![detailVC conformsToProtocol:@protocol(SplitViewBarButtonItemPresenter)]) {
+        detailVC = nil;
+    } 
+    return detailVC;
+}
+
+- (void)setTitleBarButtonItemStr:(NSString *)titleBarButtonItemStr
+{
+    if (_titleBarButtonItemStr != titleBarButtonItemStr) {        
+        // iPad only
+        NSMutableArray *items = [self.toolbar.items mutableCopy];
+        [[items objectAtIndex:[items count] - 2] setTitle:self.title];
+        
+        [self.toolbar setItems:items animated:YES];
+        _titleBarButtonItemStr = titleBarButtonItemStr;
+    }
+}
+
+- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem 
+{
+    if (_splitViewBarButtonItem != splitViewBarButtonItem) {
+        
+        NSMutableArray *items = [self.toolbar.items mutableCopy];
+        if (_splitViewBarButtonItem) 
+            [items removeObject:_splitViewBarButtonItem];
+        if (splitViewBarButtonItem) 
+            [items insertObject:splitViewBarButtonItem atIndex:0];
+        
+        self.toolbar.items = items;
+        _splitViewBarButtonItem = splitViewBarButtonItem;
+    }
 }
 
 #pragma mark - Setup
@@ -88,8 +116,10 @@
                 iPhone: seguing creates a new instance of this VC, above unnecessary */        
             if (self.photo == photo) {
                 [self.spinner stopAnimating];
-                [self setPhotoTitle:photo];
-                
+                // iPHONE
+                self.title = [FlickrService titleForPhoto:photo];
+                // iPAD
+                [self splitViewBarButtonItemPresenter].titleBarButtonItemStr = self.title;
                 self.imageView.image = image;
                 self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height);
                 self.scrollView.contentSize = self.imageView.image.size;
@@ -97,14 +127,13 @@
             }
         });
     });
-    
-    dispatch_release(queue);  
 }
 
 - (void)refreshPhotoScrollView:(NSDictionary *)photo 
 {	
-	self.photo = photo;                         // Setup the model
+    if (!photo) return;
     
+	self.photo = photo;                         // Setup the mode
 	[FlickrRecentPhotos addPhoto:photo];
 	[self synchronizeView];
 }
@@ -122,8 +151,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-	self.scrollView.delegate = self;
+    
+    // load newest cached photo 
+    if (!self.photo) 
+        self.photo = [[FlickrRecentPhotos retrievePhotos] objectAtIndex:0];
 }
 
 - (void)viewDidUnload
@@ -136,12 +167,10 @@
     [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated 
+- (void)viewDidAppear:(BOOL)animated
 {	
-	if (self.photo) 
-        [self synchronizeView];
-    else // load newest cached photo 
-        self.photo = [[FlickrRecentPhotos retrievePhotos] objectAtIndex:0];
+    
+	self.scrollView.delegate = self;
 
     [self refreshPhotoScrollView:self.photo];
 }
@@ -149,7 +178,7 @@
 - (void)viewWillLayoutSubviews 
 {     
 	// Zoom the image to fill up the view
-	if (self.imageView.image) [self updateZoomScale];    
+	if (self.imageView.image) [self updateZoomScale];  
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -173,19 +202,15 @@
 
 #pragma mark - UISplitViewControllerDelegate
 
-
-
 - (void)splitViewController: (UISplitViewController*)svc 
      willHideViewController:(UIViewController *)aViewController 
           withBarButtonItem:(UIBarButtonItem*)barButtonItem 
        forPopoverController: (UIPopoverController*)pc
 {
     // add button to toolbar
-    [barButtonItem setTitle:@"Browse"];
+    barButtonItem.title = @"Browse";
     
-    NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
-    [toolbarItems insertObject:barButtonItem atIndex:0];
-    [self.toolbar setItems:toolbarItems animated:YES];
+    [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = barButtonItem;
 }
 
 - (void)splitViewController: (UISplitViewController*)svc 
@@ -193,23 +218,19 @@
   invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
     // remove button from toolbar
-    NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
-    [toolbarItems removeObjectAtIndex:0];
-    [self.toolbar setItems:toolbarItems animated:YES];
+    
+    [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = nil;
 }
 
 - (BOOL)splitViewController: (UISplitViewController*)svc 
    shouldHideViewController:(UIViewController *)vc 
               inOrientation:(UIInterfaceOrientation)orientation  
 {
-    if (self.splitViewController) {
-        // iPAD
-        return UIInterfaceOrientationIsPortrait(orientation);
-    } else {
-        // iPHONE
-        return NO;
-    }
+    return [self splitViewBarButtonItemPresenter] 
+    // iPAD
+    ? UIInterfaceOrientationIsPortrait(orientation) 
+    // iPHONE
+    : NO;
 }
-
 
 @end

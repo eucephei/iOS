@@ -16,12 +16,14 @@
 
 @interface PhotosTableViewController() <MapViewControllerDelegate>
 @property (nonatomic, strong) UIImage *thumbnail;
+@property (nonatomic, strong) UIImageView *thumbnailPlaceHolder;
 @end
 
 @implementation PhotosTableViewController
 
 @synthesize flickrPhotos = _flickrPhotos;
 @synthesize thumbnail = _thumbnail;
+@synthesize thumbnailPlaceHolder = _thumbnailPlaceHolder;
 
 #pragma mark - Accessors
 
@@ -31,6 +33,17 @@
         _thumbnail = [UIImage imageNamed:@"thumbnail.png"];
     
     return _thumbnail;
+}
+
+#pragma mark - Segue to PhotoSCrollViewController (iPad)
+
+-(void) performSegueWithPhoto:(NSDictionary *)photo
+{
+    // iPAD: the detail view controller    
+    PhotoScrollViewController *photoSVC = [[self.splitViewController viewControllers] lastObject];
+    
+    // Set up the model and synchronize it's views, else handle by the segue
+	if (photoSVC) [photoSVC refreshPhotoScrollView:photo]; 
 }
 
 #pragma mark - MapViewControllerDelegate
@@ -59,9 +72,7 @@
 {
     if (self.splitViewController) {
         // iPAD
-        PhotoScrollViewController *photoSVC = [self.splitViewController.viewControllers lastObject];
-        if (photoSVC) 
-            [photoSVC refreshPhotoScrollView:((FlickrPhotoAnnotation*)annotation).photo];
+        [self performSegueWithPhoto:((FlickrPhotoAnnotation*)annotation).photo];
     } else {
         // iPHONE
         [self performSegueWithIdentifier:@"ShowPhoto" sender:annotation];
@@ -171,26 +182,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {	    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPad)
-        return;
- 
-    // the detail view controller    
-    PhotoScrollViewController *photoSVC = [[self.splitViewController viewControllers] lastObject];
-
-    // Set up the model and synchronize it's views, else handle by the segue
-	if (photoSVC) [photoSVC refreshPhotoScrollView:[self photoInfo]];    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        [self performSegueWithPhoto:[self photoInfo]];
 }
 
 #pragma mark - Segueing
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender 
-{	    
+{
    if ([segue.destinationViewController isKindOfClass:[MapViewController class]]) {
-   
+    
        [segue.destinationViewController setDelegate:self];  
        [segue.destinationViewController setAnnotations:[self mapAnnotations]];
     }
     
+    // iPHONE 
     else if ([segue.destinationViewController isKindOfClass:[PhotoScrollViewController class]]) {
         
         if ([sender isKindOfClass:[UITableViewCell class]])
@@ -199,6 +205,5 @@
             [[segue destinationViewController] setPhoto:((FlickrPhotoAnnotation*)sender).photo];
     }
 }
-
 
 @end

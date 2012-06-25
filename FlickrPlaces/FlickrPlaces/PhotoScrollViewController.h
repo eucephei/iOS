@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SplitViewBarButtonItemPresenter.h"
 
-@interface PhotoScrollViewController : UIViewController<UIScrollViewDelegate, UISplitViewControllerDelegate>
+@interface PhotoScrollViewController : UIViewController<SplitViewBarButtonItemPresenter, UIScrollViewDelegate, UISplitViewControllerDelegate>
 
 @property (nonatomic, strong) NSDictionary *photo;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;

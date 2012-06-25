@@ -65,7 +65,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1255" y="-38"/>
+            <point key="canvasLocation" x="1847" y="82"/>
         </scene>
         <scene sceneID="57t-JY-caS">
             <objects>
@@ -120,7 +120,7 @@
                     </navigationItem>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1483" y="530"/>
+            <point key="canvasLocation" x="2067" y="650"/>
         </scene>
         <scene sceneID="HNP-1J-VPe">
             <objects>
@@ -138,7 +138,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="769" y="-46"/>
+            <point key="canvasLocation" x="1361" y="74"/>
         </scene>
         <scene sceneID="F2b-kf-g4h">
             <objects>
@@ -156,7 +156,7 @@
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="231" y="310"/>
+            <point key="canvasLocation" x="823" y="430"/>
         </scene>
         <scene sceneID="STi-vj-9g7">
             <objects>
@@ -211,7 +211,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1719" y="-38"/>
+            <point key="canvasLocation" x="2311" y="82"/>
         </scene>
         <scene sceneID="K5C-9h-DXf">
             <objects>
@@ -238,7 +238,7 @@
                                 </connections>
                             </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="LYo-eZ-xnS">
-                                <rect key="frame" x="142" y="196" width="37" height="37"/>
+                                <rect key="frame" x="142" y="195" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
@@ -252,7 +252,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2278" y="-38"/>
+            <point key="canvasLocation" x="2870" y="82"/>
         </scene>
         <scene sceneID="aAQ-m1-fIJ">
             <objects>
@@ -291,7 +291,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1990" y="-746"/>
+            <point key="canvasLocation" x="2582" y="-626"/>
         </scene>
         <scene sceneID="vue-59-6xJ">
             <objects>
@@ -309,7 +309,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="769" y="538"/>
+            <point key="canvasLocation" x="1361" y="658"/>
         </scene>
         <scene sceneID="4xe-np-qnX">
             <objects>
@@ -348,7 +348,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2262" y="530"/>
+            <point key="canvasLocation" x="2742" y="650"/>
         </scene>
     </scenes>
     <resources>

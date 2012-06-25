@@ -28,6 +28,7 @@
 - (IBAction)refresh:(id)sender {
     
     UIActivityIndicatorView* spinner = [UIActivityIndicatorView alloc];
+    
     if ([sender isKindOfClass:[UIBarButtonItem class]]) {
         spinner = [spinner initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
@@ -43,12 +44,12 @@
         self.flickrPlaces = [FlickrService topPlaces];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            [spinner stopAnimating];
             self.selectedFlickrPlaces = [FlickrService selectTopPlaces:self.flickrPlaces];
             self.countries = [[self.selectedFlickrPlaces allKeys] sortedArrayUsingSelector: 
                               @selector(caseInsensitiveCompare:)];
             self.navigationItem.leftBarButtonItem = sender;
             [self.tableView reloadData];
-            [spinner stopAnimating];
         });
     });
 }
@@ -127,6 +128,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Flickr Place";
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
@@ -169,7 +171,7 @@
     else if ([segue.identifier isEqualToString:@"ShowPlacePhotos"]){
         
         NSDictionary *place;
-        
+    
         if  ([sender isKindOfClass:[UITableViewCell class]]) {
             int section = self.tableView.indexPathForSelectedRow.section;
             int row = self.tableView.indexPathForSelectedRow.row;

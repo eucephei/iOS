@@ -15,9 +15,6 @@
 {
 	NSArray *photos = [[[[NSUserDefaults standardUserDefaults] objectForKey:FLICKR_PHOTOS_RECENT] reverseObjectEnumerator] allObjects];
     
-    if ([photos count] == 0)
-        photos = [FlickrService topPlaces];
-    
     return photos;
 }
 

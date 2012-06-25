@@ -10,7 +10,7 @@
 
 #define MAP_TYPE @"map_type"
 #define MAP_PIN_VIEW @"map_pin_view" 
-#define MAP_REGION_MARGIN .002
+#define MAP_REGION_MARGIN .02
 
 @implementation MapViewController
 
@@ -47,7 +47,7 @@
     region.span.latitudeDelta = (maxLat - minLat + MAP_REGION_MARGIN);
     region.span.longitudeDelta = (maxLng - minLng + MAP_REGION_MARGIN);
     
-    [self.mapView setRegion:region animated:YES];
+    [self.mapView setRegion:region animated:NO];
 }
 
 #pragma mark - Accessors
@@ -123,7 +123,7 @@
         view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     }
     
-    /* build (but not load) thumbnail accessory is not redundant because same MapView is reused between different delegates */
+    /* build (but not load) thumbnail accessory is not redundant because same mapView is reused between different delegates */
     view.leftCalloutAccessoryView =  (![self.delegate annotationHasThumbnail]) 
         ? nil 
         : [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];

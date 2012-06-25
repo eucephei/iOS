@@ -14,9 +14,9 @@
 		50A671AC1581B56B00A34F20 /* PlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A671AB1581B56B00A34F20 /* PlacesTableViewController.m */; };
 		50A671B31581C60100A34F20 /* PhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A671B21581C60100A34F20 /* PhotosTableViewController.m */; };
 		50A671C51581D42E00A34F20 /* PhotoScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A671C41581D42E00A34F20 /* PhotoScrollViewController.m */; };
+		50B0441715981A2E00D1382E /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B0441615981A2D00D1382E /* thumbnail.png */; };
 		50B06A3D158AE79D0051E9A7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B06A3C158AE79D0051E9A7 /* CoreLocation.framework */; };
 		50B06A46158AEB890051E9A7 /* FlickrImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B06A45158AEB890051E9A7 /* FlickrImage.m */; };
-		50B19F361589D2BF00405CF0 /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B19F351589D2BF00405CF0 /* thumbnail.png */; };
 		50B76E44157C74B500843CB4 /* photos.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B76E41157C74B500843CB4 /* photos.png */; };
 		50B76E45157C74B500843CB4 /* briefcase.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B76E42157C74B500843CB4 /* briefcase.png */; };
 		50B76E46157C74B500843CB4 /* world.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B76E43157C74B500843CB4 /* world.png */; };
@@ -48,10 +48,11 @@
 		50A671B21581C60100A34F20 /* PhotosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosTableViewController.m; sourceTree = "<group>"; };
 		50A671C31581D42E00A34F20 /* PhotoScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoScrollViewController.h; sourceTree = "<group>"; };
 		50A671C41581D42E00A34F20 /* PhotoScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoScrollViewController.m; sourceTree = "<group>"; };
+		50AB62E7158F73D200CC7D9D /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
+		50B0441615981A2D00D1382E /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
 		50B06A3C158AE79D0051E9A7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		50B06A44158AEB890051E9A7 /* FlickrImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrImage.h; sourceTree = "<group>"; };
 		50B06A45158AEB890051E9A7 /* FlickrImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrImage.m; sourceTree = "<group>"; };
-		50B19F351589D2BF00405CF0 /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
 		50B76E41157C74B500843CB4 /* photos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photos.png; sourceTree = "<group>"; };
 		50B76E42157C74B500843CB4 /* briefcase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = briefcase.png; sourceTree = "<group>"; };
 		50B76E43157C74B500843CB4 /* world.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world.png; sourceTree = "<group>"; };
@@ -140,11 +141,11 @@
 		50D8A2C2157859810042F548 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				50B19F351589D2BF00405CF0 /* thumbnail.png */,
+				50E6304F157C69980074451F /* Flickr.png */,
+				50B0441615981A2D00D1382E /* thumbnail.png */,
+				50B76E43157C74B500843CB4 /* world.png */,
 				50B76E41157C74B500843CB4 /* photos.png */,
 				50B76E42157C74B500843CB4 /* briefcase.png */,
-				50B76E43157C74B500843CB4 /* world.png */,
-				50E6304F157C69980074451F /* Flickr.png */,
 				50D8A2C3157859810042F548 /* FlickrPlaces-Info.plist */,
 				50D8A2C4157859810042F548 /* InfoPlist.strings */,
 				50D8A2C7157859810042F548 /* main.m */,
@@ -171,6 +172,7 @@
 		50E6304D157C692D0074451F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				50AB62E7158F73D200CC7D9D /* SplitViewBarButtonItemPresenter.h */,
 				50B06A44158AEB890051E9A7 /* FlickrImage.h */,
 				50B06A45158AEB890051E9A7 /* FlickrImage.m */,
 			);
@@ -252,7 +254,7 @@
 				50B76E44157C74B500843CB4 /* photos.png in Resources */,
 				50B76E45157C74B500843CB4 /* briefcase.png in Resources */,
 				50B76E46157C74B500843CB4 /* world.png in Resources */,
-				50B19F361589D2BF00405CF0 /* thumbnail.png in Resources */,
+				50B0441715981A2E00D1382E /* thumbnail.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

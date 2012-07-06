@@ -35,15 +35,16 @@
     return _thumbnail;
 }
 
-#pragma mark - Segue to PhotoSCrollViewController (iPad)
+#pragma mark - Segue (iPad only)
 
 -(void) performSegueWithPhoto:(NSDictionary *)photo
 {
     // iPAD: the detail view controller    
-    PhotoScrollViewController *photoSVC = [[self.splitViewController viewControllers] lastObject];
+    id photoSVC = [[self.splitViewController viewControllers] lastObject];
     
     // Set up the model and synchronize it's views, else handle by the segue
-	if (photoSVC) [photoSVC refreshPhotoScrollView:photo]; 
+    if ([photoSVC respondsToSelector:@selector(refreshPhotoScrollView:)])
+        [photoSVC refreshPhotoScrollView:photo]; 
 }
 
 #pragma mark - MapViewControllerDelegate
@@ -83,7 +84,7 @@
 {
     NSDictionary *photo = ((FlickrPhotoAnnotation *) annotation).photo;
     NSData *data = [FlickrService dataWithContentsOfURLForPhoto:photo format:FlickrPhotoFormatSquare];
-
+    
     return (!data) ? nil : [UIImage imageWithData:data];
 }
 
@@ -92,7 +93,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
 }
@@ -153,19 +154,19 @@
     cell.imageView.image = [self thumbnail];
     cell.textLabel.text = [FlickrService titleForPhoto:selectFlickrPhoto];
     cell.detailTextLabel.text = [FlickrService subtitleForPhoto:selectFlickrPhoto];
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
         NSString* title = cell.textLabel.text;
         
         // UIImage* image = [UIImage imageWithData:[FlickrService dataWithContentsOfURLForPhoto:selectFlickrPhoto format:FlickrPhotoFormatSquare]];
         UIImage* image = [FlickrImage imageForPhoto:selectFlickrPhoto format:FlickrPhotoFormatSquare];
-
+        
         /* ensure modify only imageView in the row that appeared as cells are reused,
-           by comparing local cell title copied on stack and the fresh cell title */
+         by comparing local cell title copied on stack and the fresh cell title */
         dispatch_async(dispatch_get_main_queue(), ^{
-           if ([title isEqualToString:cell.textLabel.text])
-               cell.imageView.image = image;
+            if ([title isEqualToString:cell.textLabel.text])
+                cell.imageView.image = image;
         });
     });
     
@@ -186,23 +187,22 @@
         [self performSegueWithPhoto:[self photoInfo]];
 }
 
-#pragma mark - Segueing
+#pragma mark - Segue 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender 
 {
-   if ([segue.destinationViewController isKindOfClass:[MapViewController class]]) {
-    
-       [segue.destinationViewController setDelegate:self];  
-       [segue.destinationViewController setAnnotations:[self mapAnnotations]];
+    id detailVC = segue.destinationViewController;
+    if ([detailVC isKindOfClass:[MapViewController class]]) {
+        [detailVC setDelegate:self];  
+        [detailVC setAnnotations:[self mapAnnotations]];
     }
     
     // iPHONE 
-    else if ([segue.destinationViewController isKindOfClass:[PhotoScrollViewController class]]) {
-        
+    else if ([detailVC isKindOfClass:[PhotoScrollViewController class]]) {
         if ([sender isKindOfClass:[UITableViewCell class]])
-            [[segue destinationViewController] setPhoto:[self photoInfo]];
+            [detailVC setPhoto:[self photoInfo]];
         else if ([sender isKindOfClass:[FlickrPhotoAnnotation class]])
-            [[segue destinationViewController] setPhoto:((FlickrPhotoAnnotation*)sender).photo];
+            [detailVC setPhoto:((FlickrPhotoAnnotation*)sender).photo];
     }
 }
 

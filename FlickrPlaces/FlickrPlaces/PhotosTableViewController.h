@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) NSArray *flickrPhotos;
 
+-(void) performSegueWithPhoto:(NSDictionary *)photo;  // iPad only
+
 @end

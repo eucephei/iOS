@@ -17,10 +17,13 @@
 + (NSString *)titleForPhoto:(NSDictionary *)photo;
 
 + (NSString *)countryForPlace:(NSDictionary *)place;
++ (NSString *)descriptionFromPlace:(NSString *)place;
 + (NSString *)descriptionForPlace:(NSDictionary *)place;
++ (NSString *)titleFromPlace:(NSString *)place;
 + (NSString *)titleForPlace:(NSDictionary *)place;
 + (NSArray *)titlesForPlace:(NSDictionary *)place;
 
++ (NSURL *)urlForPhoto:(NSDictionary *)photo;
 + (NSData *)dataWithContentsOfURLForPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format;
 + (NSArray *)photosInPlace:(NSDictionary *)place;
 

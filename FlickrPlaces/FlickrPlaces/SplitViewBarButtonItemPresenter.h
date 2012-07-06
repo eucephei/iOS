@@ -10,7 +10,12 @@
 
 @protocol SplitViewBarButtonItemPresenter       // iPad only
 
+@property (nonatomic, strong) UIPopoverController *popoverController; 
+@property (nonatomic, strong) UIToolbar *toolbar; 
 @property (nonatomic, weak) NSString *titleBarButtonItemStr;
-@property (nonatomic, weak) UIBarButtonItem *splitViewBarButtonItem;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *splitViewBarButtonItem;
+
+@optional
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *visitButton;
 
 @end

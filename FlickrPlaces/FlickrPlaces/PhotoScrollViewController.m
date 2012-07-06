@@ -13,16 +13,21 @@
 
 @interface PhotoScrollViewController()  
 @property (nonatomic, strong) NSDictionary *image;
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *spinner;
 @end
 
 @implementation PhotoScrollViewController
 
 @synthesize photo = _photo;
+@synthesize image = _image;
 @synthesize imageView = _photoView;
 @synthesize scrollView = _scrollView;
 @synthesize spinner = _spinner;
+
+@synthesize popoverController;      // SplitViewBarButtonItemPresenter
 @synthesize toolbar = _toolbar;
-@synthesize image = _image;
 @synthesize titleBarButtonItemStr = _titleBarButtonItemStr;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 
@@ -49,12 +54,24 @@
     return detailVC;
 }
 
+- (int) reverseIndex 
+{
+    // if no extra BarButtonItem(s) inserted from the right, then 2
+    return [self isMemberOfClass:[PhotoScrollViewController class]] ? 2 : 3;
+}
+
+- (NSString *) titleStr
+{
+    // truncate title length to fit in toolbar
+    return self.title.length < 60 ? self.title : [[self.title substringToIndex:60] stringByAppendingString:@"..."];
+}
+
 - (void)setTitleBarButtonItemStr:(NSString *)titleBarButtonItemStr
 {
     if (_titleBarButtonItemStr != titleBarButtonItemStr) {        
         // iPad only
         NSMutableArray *items = [self.toolbar.items mutableCopy];
-        [[items objectAtIndex:[items count] - 2] setTitle:self.title];
+        [[items objectAtIndex:[items count] - self.reverseIndex] setTitle:self.titleStr];
         
         [self.toolbar setItems:items animated:YES];
         _titleBarButtonItemStr = titleBarButtonItemStr;
@@ -129,13 +146,13 @@
     });
 }
 
-- (void)refreshPhotoScrollView:(NSDictionary *)photo 
+- (void) refreshPhotoScrollView:(NSDictionary *)photo 
 {	
     if (!photo) return;
     
 	self.photo = photo;                         // Setup the mode
+    [self synchronizeView];
 	[FlickrRecentPhotos addPhoto:photo];
-	[self synchronizeView];
 }
 
 #pragma mark - View lifecycle
@@ -159,20 +176,18 @@
 
 - (void)viewDidUnload
 {
-    [self setImageView:nil];
-	[self setScrollView:nil];
-    [self setSpinner:nil];
-    [self setToolbar:nil];    
+    self.imageView = nil;
+    self.scrollView = nil;
+    self.spinner = nil;
+    self.toolbar = nil;
+    self.popoverController = nil;
     
     [super viewDidUnload];
 }
 
 - (void)viewDidAppear:(BOOL)animated
-{	
-    
+{
 	self.scrollView.delegate = self;
-
-    [self refreshPhotoScrollView:self.photo];
 }
 
 - (void)viewWillLayoutSubviews 
@@ -211,6 +226,7 @@
     barButtonItem.title = @"Browse";
     
     [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = barButtonItem;
+    self.popoverController = pc;
 }
 
 - (void)splitViewController: (UISplitViewController*)svc 

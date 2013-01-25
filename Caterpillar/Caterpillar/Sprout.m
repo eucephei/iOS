@@ -29,11 +29,11 @@
     return self;
 }
 
-// 5
+// remaining lives of sprout
 - (void)setLives:(NSInteger)lives
 {
     _lives = lives;
-    self.sprite.opacity = (_lives / 3.0) * 255;
+    self.sprite.opacity = (_lives /(float)kSproutLives) * 255;
 }
 
 

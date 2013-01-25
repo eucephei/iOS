@@ -22,8 +22,7 @@
 // create the Missile’s sprite.
 - (id)initWithGameLayer:(GameLayer *)layer
 {
-    
-    if(self == [super initWithGameLayer:layer]) {
+    if(self = [super initWithGameLayer:layer]) {
         self.sprite = [CCSprite spriteWithSpriteFrameName:@"missile.png"];
     }
     
@@ -44,29 +43,29 @@
     int y = self.position.y + inc;
     self.position = ccp(self.position.x,y);
     
-    // if the missile collides ontop, garbage collect the dirty missiles 
+    // if the missile collides ontop, garbage collect the dirty missiles
     if(self.position.y > kGameAreaStartY + kGameAreaHeight) {
         self.dirty = YES;
     }
-
+    
     // missile collision with the sprouts
     CGRect missileRect = [self getBounds];
     [self.gameLayer.sprouts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
-    {
-        Sprout *sprout = (Sprout *)obj;
-        CGRect sproutRect = [sprout getBounds];
-        if(CGRectIntersectsRect(missileRect, sproutRect)) {
-            self.dirty = YES;
-            sprout.lives--;
-            
-            self.gameLayer.player.score += kSproutHitPoints +
-            (arc4random() % self.gameLayer.level) *
-            (arc4random() % self.gameLayer.level);
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPlayerScore object:nil];
-            
-            [[SimpleAudioEngine sharedEngine] playEffect:@"sprout-hit.caf"];
-        }
-    }];
+     {
+         Sprout *sprout = (Sprout *)obj;
+         CGRect sproutRect = [sprout getBounds];
+         if(CGRectIntersectsRect(missileRect, sproutRect)) {
+             self.dirty = YES;
+             sprout.lives--;
+             
+             self.gameLayer.player.score += kSproutHitPoints +
+             (arc4random() % self.gameLayer.level) *
+             (arc4random() % self.gameLayer.level);
+             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPlayerScore object:nil];
+             
+             [[SimpleAudioEngine sharedEngine] playEffect:@"sprout-hit.caf"];
+         }
+     }];
     
     __block Caterpillar *hitCaterpillar = nil;
     __block Segment *hitSegment = nil;
@@ -103,7 +102,7 @@
         [hitSegment release];
         [hitCaterpillar release];
     }
-
+    
 }
 
 @end

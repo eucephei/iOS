@@ -134,6 +134,8 @@
 		CE8AA55416A7D7B000C8ED81 /* GameLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AA55316A7D7B000C8ED81 /* GameLayer.m */; };
 		CE8AA55816A7D83500C8ED81 /* TitleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AA55716A7D83500C8ED81 /* TitleLayer.m */; };
 		CE8AA55A16A7D96300C8ED81 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE8AA55916A7D96300C8ED81 /* Default-568h@2x.png */; };
+		CE9E582F16B2843200BE7C3C /* pauseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CE9E582E16B2843200BE7C3C /* pauseButton.png */; };
+		CE9E583216B284C500BE7C3C /* PauseLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E583116B284C500BE7C3C /* PauseLayer.m */; };
 		CEC7506216ABC38E00EB353A /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC7506116ABC38E00EB353A /* GameObject.m */; };
 		CEC7506516ABC42000EB353A /* Sprout.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC7506416ABC42000EB353A /* Sprout.m */; };
 		CEC7506816ABC47D00EB353A /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC7506716ABC47D00EB353A /* Player.m */; };
@@ -390,6 +392,9 @@
 		CE8AA55616A7D83500C8ED81 /* TitleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleLayer.h; sourceTree = "<group>"; };
 		CE8AA55716A7D83500C8ED81 /* TitleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleLayer.m; sourceTree = "<group>"; };
 		CE8AA55916A7D96300C8ED81 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		CE9E582E16B2843200BE7C3C /* pauseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseButton.png; sourceTree = "<group>"; };
+		CE9E583016B284C400BE7C3C /* PauseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseLayer.h; sourceTree = "<group>"; };
+		CE9E583116B284C500BE7C3C /* PauseLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseLayer.m; sourceTree = "<group>"; };
 		CEC7506016ABC38E00EB353A /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		CEC7506116ABC38E00EB353A /* GameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
 		CEC7506316ABC42000EB353A /* Sprout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprout.h; sourceTree = "<group>"; };
@@ -758,6 +763,7 @@
 		CE8AA53E16A7D6C600C8ED81 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				CE9E582E16B2843200BE7C3C /* pauseButton.png */,
 				CE8AA53F16A7D6D200C8ED81 /* game-over.png */,
 				CE8AA54016A7D6D200C8ED81 /* title.png */,
 				CE8AA54116A7D6D200C8ED81 /* game-over-hd.png */,
@@ -781,6 +787,8 @@
 				CEE2AD9C16AE6E7E00EDFDD9 /* GameOverLayer.m */,
 				CE8AA55616A7D83500C8ED81 /* TitleLayer.h */,
 				CE8AA55716A7D83500C8ED81 /* TitleLayer.m */,
+				CE9E583016B284C400BE7C3C /* PauseLayer.h */,
+				CE9E583116B284C500BE7C3C /* PauseLayer.m */,
 			);
 			name = Layers;
 			sourceTree = "<group>";
@@ -884,6 +892,7 @@
 				CE8AA54D16A7D6D200C8ED81 /* caterpillar.plist in Resources */,
 				CE8AA54E16A7D6D200C8ED81 /* caterpillar.png in Resources */,
 				CE8AA55A16A7D96300C8ED81 /* Default-568h@2x.png in Resources */,
+				CE9E582F16B2843200BE7C3C /* pauseButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1003,6 +1012,7 @@
 				CEE2AD9116AE55CB00EDFDD9 /* Missile.m in Sources */,
 				CEE2AD9916AE63D500EDFDD9 /* NSArray+Reverse.m in Sources */,
 				CEE2AD9D16AE6E7E00EDFDD9 /* GameOverLayer.m in Sources */,
+				CE9E583216B284C500BE7C3C /* PauseLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

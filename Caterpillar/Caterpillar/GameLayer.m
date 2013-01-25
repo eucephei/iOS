@@ -13,6 +13,9 @@
 #import "Missile.h"
 #import "Segment.h"
 #import "NSArray+Reverse.h"
+#import "PauseLayer.h"
+#import "GameOverLayer.h"
+
 
 @interface GameLayer(Private)
 - (CGPoint)randomEmptyLocation;
@@ -146,10 +149,21 @@
             Missile *missile = [[Missile alloc] initWithGameLayer:self];
             [self.missilesWaiting addObject:missile];
             [missile release];
-            
         }
         
+        
+        // Pause Button
+        CCMenuItem *Pause = [CCMenuItemImage itemFromNormalImage:@"pauseButton.png"
+                                                   selectedImage: @"pauseButton.png"
+                                                          target:self selector:@selector(pause:)];
+        CCMenu *PauseButton = [CCMenu menuWithItems: Pause, nil];
+        PauseButton.position = ccp(295, 25);
+        [self addChild:PauseButton z:1000];
+        
+        
+        
     }
+    
     return self;
 }
 
@@ -183,7 +197,6 @@ static float missleFireCount = 0;
             [self.missilesWaiting removeObjectAtIndex:0];
             missile.position = self.player.position;
             [self.spritesBatchNode addChild:missile.sprite];
-            
         }
     }
     
@@ -223,7 +236,6 @@ static float missleFireCount = 0;
     }
     
 }
-
 
 - (void)placeRandomSprout
 {
@@ -282,6 +294,10 @@ static float missleFireCount = 0;
         [self.spritesBatchNode addChild:sprite];
     }
     
+    // replace the current scene with the Game Over scene
+    if (lifeCount == 0) {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:.5 scene:[GameOverLayer sceneWithScore:self.player.score] withColor:ccWHITE]];
+    }
 }
 
 - (void) updateScore:(NSNotification *) notification
@@ -323,12 +339,12 @@ static float missleFireCount = 0;
         
         // Update the player’s position
         self.player.position = ccp(newX,newY);
+        CGRect playerRect = [self.player getBounds];
         
         // see if the player collides with any of the sprouts
         [self.sprouts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             Sprout *sprout = (Sprout *)obj;
             CGRect sproutRect = [sprout getBounds];
-            CGRect playerRect = [self.player getBounds];
             
             if(CGRectIntersectsRect(sproutRect, playerRect)) {
                 collide = YES;
@@ -342,6 +358,7 @@ static float missleFireCount = 0;
             self.player.position = oldPosition;
         }
     }
+    
 }
 
 - (void)checkNextLevel
@@ -381,7 +398,7 @@ static float missleFireCount = 0;
 	int y = (kGameAreaStartY - kGridCellSize + kGameAreaHeight + kGridCellSize/2 - position.y) / kGridCellSize;
 	
 	// Create a new sprout and add it to the game.
-	Sprout *sprout = [[Sprout alloc] initWithGameLayer:self];
+	Sprout *sprout = [[[Sprout alloc] initWithGameLayer:self] autorelease];
 	sprout.position = position;
 	[self.sprouts addObject:sprout];
 	_locations[x][y] = YES;
@@ -389,7 +406,7 @@ static float missleFireCount = 0;
 
 - (void)splitCaterpillar:(Caterpillar *)caterpillar atSegment:(Segment *)segment
 {
-	// if hit a single segment caterpillar, 
+	// if hit a single segment caterpillar,
 	if([caterpillar.segments count] == 1) {
 	    [self.spritesBatchNode removeChild:segment.sprite cleanup:NO];
 	    [self.caterpillars removeObject:caterpillar];
@@ -401,7 +418,7 @@ static float missleFireCount = 0;
 	// remove the sprite of the segment hit from the batch node.
 	[self.spritesBatchNode removeChild:segment.sprite cleanup:NO];
 	
-	// convert the hit segment to a sprout 
+	// convert the hit segment to a sprout
 	[self createSproutAtPostion:segment.position];
 	
 	// split the caterpillar into two arrays, head/tail
@@ -409,7 +426,7 @@ static float missleFireCount = 0;
 	NSMutableArray *headSegments = [NSMutableArray array];
 	NSMutableArray *tailsSegments = [NSMutableArray array];
 	
-	// where the other segments fall 
+	// where the other segments fall
 	[caterpillar.segments enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 	    if(idx < indexOfSegement) {
             [headSegments addObject:obj];
@@ -462,7 +479,15 @@ static float missleFireCount = 0;
 	    caterpillar.segments = headSegments;
 	} else {
 	    [self.caterpillars removeObject:caterpillar];
-	}	
+	}
 }
+
+-(void) pause: (id) sender
+{
+	[[CCDirector sharedDirector] pushScene:[PauseLayer node]];
+}
+
+
+
 
 @end

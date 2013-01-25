@@ -15,9 +15,7 @@
 +(CCScene *) scene
 {
     CCScene *scene = [CCScene node];
-    
     TitleLayer *layer = [TitleLayer node];
-    
     [scene addChild: layer];
     
     return scene;
